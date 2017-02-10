@@ -99,6 +99,7 @@
     [self.view endEditing:YES];
     
     SDLAlert *alert = [[SDLAlert alloc] initWithAlertText1:alertText1 alertText2:alertText2 duration:[duration integerValue]];
+    alert.playTone = @(YES);
     alert.correlationID = @(102);
     [[ProxyManager sharedManager].sdlManager.proxy sendRPC:alert];
 }

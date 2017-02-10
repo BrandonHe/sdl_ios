@@ -95,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
     SDLLifecycleConfiguration *lifecycleConfig = [self.class setLifecycleConfigurationPropertiesOnConfiguration:[SDLLifecycleConfiguration defaultConfigurationWithAppName:SDLAppName appId:SDLAppId transportType:SDLTransportTypeUSBMUXD]];
     
     // Assume this is production and disable logging
-    lifecycleConfig.logFlags = SDLLogOutputNone;
+    lifecycleConfig.logFlags = SDLLogOutputConsole;
     
     SDLConfiguration *config = [SDLConfiguration configurationWithLifecycle:lifecycleConfig lockScreen:[SDLLockScreenConfiguration disabledConfiguration]];
     self.sdlManager = [[SDLManager alloc] initWithConfiguration:config delegate:self];

@@ -148,6 +148,9 @@
     if (![SDLDebugTool sharedTool].enabled) {
         return;
     }
+    
+    // For debug. Temporarily.
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowLogNotification" object:info];
 
     // Format the message, prepend the thread id
     NSString *outputString = [NSString stringWithFormat:@"[%li] %@", (long)[[NSThread currentThread] threadIndex], info];
