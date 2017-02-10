@@ -885,6 +885,40 @@
 		5DEE55C01B8509CB004F0D0F /* SDLURLRequestTaskSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DEE55BF1B8509CB004F0D0F /* SDLURLRequestTaskSpec.m */; };
 		5DF2BB9D1B94E38A00CE5994 /* SDLURLSessionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DF2BB9C1B94E38A00CE5994 /* SDLURLSessionSpec.m */; };
 		5DFFB9151BD7C89700DB3F04 /* SDLConnectionManagerType.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DFFB9141BD7C89700DB3F04 /* SDLConnectionManagerType.h */; };
+		6D7C42AE1E4D943900231135 /* SDLUSBMUXDTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7C42AC1E4D943900231135 /* SDLUSBMUXDTransport.h */; };
+		6D7C42AF1E4D943900231135 /* SDLUSBMUXDTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42AD1E4D943900231135 /* SDLUSBMUXDTransport.m */; };
+		6D7C42B01E4D943900231135 /* SDLUSBMUXDTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42AD1E4D943900231135 /* SDLUSBMUXDTransport.m */; };
+		6D7C42BA1E4D94B400231135 /* Peertalk.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7C42B21E4D94B400231135 /* Peertalk.h */; };
+		6D7C42BB1E4D94B400231135 /* PTChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7C42B31E4D94B400231135 /* PTChannel.h */; };
+		6D7C42BC1E4D94B400231135 /* PTChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42B41E4D94B400231135 /* PTChannel.m */; };
+		6D7C42BD1E4D94B400231135 /* PTPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7C42B51E4D94B400231135 /* PTPrivate.h */; };
+		6D7C42BE1E4D94B400231135 /* PTProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7C42B61E4D94B400231135 /* PTProtocol.h */; };
+		6D7C42BF1E4D94B400231135 /* PTProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42B71E4D94B400231135 /* PTProtocol.m */; };
+		6D7C42C01E4D94B400231135 /* PTUSBHub.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7C42B81E4D94B400231135 /* PTUSBHub.h */; };
+		6D7C42C11E4D94B400231135 /* PTUSBHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42B91E4D94B400231135 /* PTUSBHub.m */; };
+		6D7C42CB1E4D951300231135 /* BaseScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42C41E4D951300231135 /* BaseScrollViewController.m */; };
+		6D7C42CC1E4D951300231135 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42C61E4D951300231135 /* BaseTableViewController.m */; };
+		6D7C42CD1E4D951300231135 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42C81E4D951300231135 /* BaseViewController.m */; };
+		6D7C42CE1E4D951300231135 /* ShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42CA1E4D951300231135 /* ShowViewController.m */; };
+		6D7C42D31E4D953600231135 /* ConnectionUSBMUXDTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42D01E4D953600231135 /* ConnectionUSBMUXDTableViewController.m */; };
+		6D7C42D41E4D953600231135 /* LogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42D21E4D953600231135 /* LogTableViewController.m */; };
+		6D7C42D71E4D953F00231135 /* RPCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42D61E4D953F00231135 /* RPCTableViewController.m */; };
+		6D7C42DA1E4D958F00231135 /* ConnectionUSBMUXDTableViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D7C42D81E4D958F00231135 /* ConnectionUSBMUXDTableViewController.storyboard */; };
+		6D7C42FF1E4D961E00231135 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42DE1E4D961E00231135 /* MASCompositeConstraint.m */; };
+		6D7C43001E4D961E00231135 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42E11E4D961E00231135 /* MASConstraint.m */; };
+		6D7C43011E4D961E00231135 /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42E31E4D961E00231135 /* MASConstraintMaker.m */; };
+		6D7C43021E4D961E00231135 /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42E51E4D961E00231135 /* MASLayoutConstraint.m */; };
+		6D7C43031E4D961E00231135 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42E91E4D961E00231135 /* MASViewAttribute.m */; };
+		6D7C43041E4D961E00231135 /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42EB1E4D961E00231135 /* MASViewConstraint.m */; };
+		6D7C43051E4D961E00231135 /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42ED1E4D961E00231135 /* NSArray+MASAdditions.m */; };
+		6D7C43061E4D961E00231135 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42F01E4D961E00231135 /* NSLayoutConstraint+MASDebugAdditions.m */; };
+		6D7C43071E4D961E00231135 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42F21E4D961E00231135 /* View+MASAdditions.m */; };
+		6D7C43081E4D961E00231135 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42F51E4D961E00231135 /* ViewController+MASAdditions.m */; };
+		6D7C43091E4D961E00231135 /* TPKeyboardAvoidingCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42F81E4D961E00231135 /* TPKeyboardAvoidingCollectionView.m */; };
+		6D7C430A1E4D961E00231135 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42FA1E4D961E00231135 /* TPKeyboardAvoidingScrollView.m */; };
+		6D7C430B1E4D961E00231135 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42FC1E4D961E00231135 /* TPKeyboardAvoidingTableView.m */; };
+		6D7C430C1E4D961E00231135 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42FE1E4D961E00231135 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
+		6D7C430F1E4D9FF200231135 /* AlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C430E1E4D9FF200231135 /* AlertViewController.m */; };
 		DA4353DF1D271FD10099B8C4 /* CGPointUtilSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4353DE1D271FD10099B8C4 /* CGPointUtilSpec.m */; };
 		DA4353E31D2720A30099B8C4 /* SDLPinchGestureSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4353E21D2720A30099B8C4 /* SDLPinchGestureSpec.m */; };
 		DA4353E91D2721680099B8C4 /* DispatchTimerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4353E61D2721680099B8C4 /* DispatchTimerSpec.m */; };
@@ -1924,6 +1958,66 @@
 		5DEE55BF1B8509CB004F0D0F /* SDLURLRequestTaskSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDLURLRequestTaskSpec.m; path = "UtilitiesSpecs/HTTP Connection/SDLURLRequestTaskSpec.m"; sourceTree = "<group>"; };
 		5DF2BB9C1B94E38A00CE5994 /* SDLURLSessionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDLURLSessionSpec.m; path = "UtilitiesSpecs/HTTP Connection/SDLURLSessionSpec.m"; sourceTree = "<group>"; };
 		5DFFB9141BD7C89700DB3F04 /* SDLConnectionManagerType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLConnectionManagerType.h; sourceTree = "<group>"; };
+		6D7C42AC1E4D943900231135 /* SDLUSBMUXDTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLUSBMUXDTransport.h; sourceTree = "<group>"; };
+		6D7C42AD1E4D943900231135 /* SDLUSBMUXDTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLUSBMUXDTransport.m; sourceTree = "<group>"; };
+		6D7C42B21E4D94B400231135 /* Peertalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Peertalk.h; sourceTree = "<group>"; };
+		6D7C42B31E4D94B400231135 /* PTChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTChannel.h; sourceTree = "<group>"; };
+		6D7C42B41E4D94B400231135 /* PTChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTChannel.m; sourceTree = "<group>"; };
+		6D7C42B51E4D94B400231135 /* PTPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTPrivate.h; sourceTree = "<group>"; };
+		6D7C42B61E4D94B400231135 /* PTProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTProtocol.h; sourceTree = "<group>"; };
+		6D7C42B71E4D94B400231135 /* PTProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTProtocol.m; sourceTree = "<group>"; };
+		6D7C42B81E4D94B400231135 /* PTUSBHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTUSBHub.h; sourceTree = "<group>"; };
+		6D7C42B91E4D94B400231135 /* PTUSBHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTUSBHub.m; sourceTree = "<group>"; };
+		6D7C42C31E4D951300231135 /* BaseScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseScrollViewController.h; sourceTree = "<group>"; };
+		6D7C42C41E4D951300231135 /* BaseScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseScrollViewController.m; sourceTree = "<group>"; };
+		6D7C42C51E4D951300231135 /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
+		6D7C42C61E4D951300231135 /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
+		6D7C42C71E4D951300231135 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		6D7C42C81E4D951300231135 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		6D7C42C91E4D951300231135 /* ShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowViewController.h; sourceTree = "<group>"; };
+		6D7C42CA1E4D951300231135 /* ShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowViewController.m; sourceTree = "<group>"; };
+		6D7C42CF1E4D953600231135 /* ConnectionUSBMUXDTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConnectionUSBMUXDTableViewController.h; path = SmartDeviceLink_Example/Classes/ConnectionUSBMUXDTableViewController.h; sourceTree = SOURCE_ROOT; };
+		6D7C42D01E4D953600231135 /* ConnectionUSBMUXDTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConnectionUSBMUXDTableViewController.m; path = SmartDeviceLink_Example/Classes/ConnectionUSBMUXDTableViewController.m; sourceTree = SOURCE_ROOT; };
+		6D7C42D11E4D953600231135 /* LogTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogTableViewController.h; path = SmartDeviceLink_Example/Classes/LogTableViewController.h; sourceTree = SOURCE_ROOT; };
+		6D7C42D21E4D953600231135 /* LogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogTableViewController.m; path = SmartDeviceLink_Example/Classes/LogTableViewController.m; sourceTree = SOURCE_ROOT; };
+		6D7C42D51E4D953F00231135 /* RPCTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RPCTableViewController.h; path = SmartDeviceLink_Example/Classes/RPCTableViewController.h; sourceTree = SOURCE_ROOT; };
+		6D7C42D61E4D953F00231135 /* RPCTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RPCTableViewController.m; path = SmartDeviceLink_Example/Classes/RPCTableViewController.m; sourceTree = SOURCE_ROOT; };
+		6D7C42D91E4D958F00231135 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SmartDeviceLink_Example/Base.lproj/ConnectionUSBMUXDTableViewController.storyboard; sourceTree = SOURCE_ROOT; };
+		6D7C42DD1E4D961E00231135 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
+		6D7C42DE1E4D961E00231135 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
+		6D7C42DF1E4D961E00231135 /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
+		6D7C42E01E4D961E00231135 /* MASConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraint.h; sourceTree = "<group>"; };
+		6D7C42E11E4D961E00231135 /* MASConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraint.m; sourceTree = "<group>"; };
+		6D7C42E21E4D961E00231135 /* MASConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraintMaker.h; sourceTree = "<group>"; };
+		6D7C42E31E4D961E00231135 /* MASConstraintMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraintMaker.m; sourceTree = "<group>"; };
+		6D7C42E41E4D961E00231135 /* MASLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASLayoutConstraint.h; sourceTree = "<group>"; };
+		6D7C42E51E4D961E00231135 /* MASLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASLayoutConstraint.m; sourceTree = "<group>"; };
+		6D7C42E61E4D961E00231135 /* Masonry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Masonry.h; sourceTree = "<group>"; };
+		6D7C42E71E4D961E00231135 /* MASUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASUtilities.h; sourceTree = "<group>"; };
+		6D7C42E81E4D961E00231135 /* MASViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewAttribute.h; sourceTree = "<group>"; };
+		6D7C42E91E4D961E00231135 /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
+		6D7C42EA1E4D961E00231135 /* MASViewConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewConstraint.h; sourceTree = "<group>"; };
+		6D7C42EB1E4D961E00231135 /* MASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewConstraint.m; sourceTree = "<group>"; };
+		6D7C42EC1E4D961E00231135 /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASAdditions.h"; sourceTree = "<group>"; };
+		6D7C42ED1E4D961E00231135 /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MASAdditions.m"; sourceTree = "<group>"; };
+		6D7C42EE1E4D961E00231135 /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		6D7C42EF1E4D961E00231135 /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
+		6D7C42F01E4D961E00231135 /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
+		6D7C42F11E4D961E00231135 /* View+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASAdditions.h"; sourceTree = "<group>"; };
+		6D7C42F21E4D961E00231135 /* View+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "View+MASAdditions.m"; sourceTree = "<group>"; };
+		6D7C42F31E4D961E00231135 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		6D7C42F41E4D961E00231135 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
+		6D7C42F51E4D961E00231135 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		6D7C42F71E4D961E00231135 /* TPKeyboardAvoidingCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingCollectionView.h; sourceTree = "<group>"; };
+		6D7C42F81E4D961E00231135 /* TPKeyboardAvoidingCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingCollectionView.m; sourceTree = "<group>"; };
+		6D7C42F91E4D961E00231135 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		6D7C42FA1E4D961E00231135 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		6D7C42FB1E4D961E00231135 /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
+		6D7C42FC1E4D961E00231135 /* TPKeyboardAvoidingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingTableView.m; sourceTree = "<group>"; };
+		6D7C42FD1E4D961E00231135 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		6D7C42FE1E4D961E00231135 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
+		6D7C430D1E4D9FF200231135 /* AlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertViewController.h; sourceTree = "<group>"; };
+		6D7C430E1E4D9FF200231135 /* AlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertViewController.m; sourceTree = "<group>"; };
 		DA4353DE1D271FD10099B8C4 /* CGPointUtilSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGPointUtilSpec.m; path = UtilitiesSpecs/Touches/CGPointUtilSpec.m; sourceTree = "<group>"; };
 		DA4353E21D2720A30099B8C4 /* SDLPinchGestureSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDLPinchGestureSpec.m; path = UtilitiesSpecs/Touches/SDLPinchGestureSpec.m; sourceTree = "<group>"; };
 		DA4353E61D2721680099B8C4 /* DispatchTimerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DispatchTimerSpec.m; path = UtilitiesSpecs/Touches/DispatchTimerSpec.m; sourceTree = "<group>"; };
@@ -2415,12 +2509,19 @@
 			children = (
 				5D4832991A8EA27200252386 /* Storyboards */,
 				5D4832A21A94F8F100252386 /* Transition */,
+				6D7C42C21E4D951300231135 /* RPC */,
 				5D0218FA1A8E7E1700D1BF62 /* ConnectionContainerViewController.h */,
 				5D0218FB1A8E7E1700D1BF62 /* ConnectionContainerViewController.m */,
 				5D0218F41A8E79C400D1BF62 /* ConnectionTCPTableViewController.h */,
 				5D0218F51A8E79C400D1BF62 /* ConnectionTCPTableViewController.m */,
 				5D0218FD1A8E9E0D00D1BF62 /* ConnectionIAPTableViewController.h */,
 				5D0218FE1A8E9E0D00D1BF62 /* ConnectionIAPTableViewController.m */,
+				6D7C42CF1E4D953600231135 /* ConnectionUSBMUXDTableViewController.h */,
+				6D7C42D01E4D953600231135 /* ConnectionUSBMUXDTableViewController.m */,
+				6D7C42D51E4D953F00231135 /* RPCTableViewController.h */,
+				6D7C42D61E4D953F00231135 /* RPCTableViewController.m */,
+				6D7C42D11E4D953600231135 /* LogTableViewController.h */,
+				6D7C42D21E4D953600231135 /* LogTableViewController.m */,
 			);
 			name = Connection;
 			sourceTree = "<group>";
@@ -2496,6 +2597,7 @@
 		5D4019B11A76EC350006B0C2 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				6D7C42DB1E4D961E00231135 /* Vendors */,
 				5D48329E1A92865900252386 /* SDL */,
 				5D48329A1A8EA31500252386 /* Utilities */,
 				5D0218EB1A8E795700D1BF62 /* UI */,
@@ -2525,6 +2627,7 @@
 			children = (
 				5D0218F71A8E7A7300D1BF62 /* ConnectionTCPTableViewController.storyboard */,
 				5D0219031A8E9F6D00D1BF62 /* ConnectionIAPTableViewController.storyboard */,
+				6D7C42D81E4D958F00231135 /* ConnectionUSBMUXDTableViewController.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -2631,6 +2734,8 @@
 				E9C32B8D1AB20BA200F283AF /* SDLStreamDelegate.m */,
 				5D61FBD81A84238B00846EE7 /* SDLTCPTransport.h */,
 				5D61FBD91A84238B00846EE7 /* SDLTCPTransport.m */,
+				6D7C42AC1E4D943900231135 /* SDLUSBMUXDTransport.h */,
+				6D7C42AD1E4D943900231135 /* SDLUSBMUXDTransport.m */,
 			);
 			name = Transport;
 			sourceTree = "<group>";
@@ -3096,6 +3201,7 @@
 				E9C32B831AB20B2900F283AF /* @categories */,
 				5D5934F71A8519A700687FB9 /* JSON */,
 				5D5934F91A851A8000687FB9 /* Prioritized Objects */,
+				6D7C42B11E4D94B400231135 /* Peertalk */,
 				5D61FAD21A84238A00846EE7 /* SDLHexUtility.h */,
 				5D61FAD31A84238A00846EE7 /* SDLHexUtility.m */,
 				5D61FAED1A84238A00846EE7 /* SDLJingle.h */,
@@ -3746,6 +3852,96 @@
 			name = "HTTP Connection";
 			sourceTree = "<group>";
 		};
+		6D7C42B11E4D94B400231135 /* Peertalk */ = {
+			isa = PBXGroup;
+			children = (
+				6D7C42B21E4D94B400231135 /* Peertalk.h */,
+				6D7C42B31E4D94B400231135 /* PTChannel.h */,
+				6D7C42B41E4D94B400231135 /* PTChannel.m */,
+				6D7C42B51E4D94B400231135 /* PTPrivate.h */,
+				6D7C42B61E4D94B400231135 /* PTProtocol.h */,
+				6D7C42B71E4D94B400231135 /* PTProtocol.m */,
+				6D7C42B81E4D94B400231135 /* PTUSBHub.h */,
+				6D7C42B91E4D94B400231135 /* PTUSBHub.m */,
+			);
+			path = Peertalk;
+			sourceTree = "<group>";
+		};
+		6D7C42C21E4D951300231135 /* RPC */ = {
+			isa = PBXGroup;
+			children = (
+				6D7C42C31E4D951300231135 /* BaseScrollViewController.h */,
+				6D7C42C41E4D951300231135 /* BaseScrollViewController.m */,
+				6D7C42C51E4D951300231135 /* BaseTableViewController.h */,
+				6D7C42C61E4D951300231135 /* BaseTableViewController.m */,
+				6D7C42C71E4D951300231135 /* BaseViewController.h */,
+				6D7C42C81E4D951300231135 /* BaseViewController.m */,
+				6D7C42C91E4D951300231135 /* ShowViewController.h */,
+				6D7C42CA1E4D951300231135 /* ShowViewController.m */,
+				6D7C430D1E4D9FF200231135 /* AlertViewController.h */,
+				6D7C430E1E4D9FF200231135 /* AlertViewController.m */,
+			);
+			name = RPC;
+			path = SmartDeviceLink_Example/Classes/RPC;
+			sourceTree = SOURCE_ROOT;
+		};
+		6D7C42DB1E4D961E00231135 /* Vendors */ = {
+			isa = PBXGroup;
+			children = (
+				6D7C42DC1E4D961E00231135 /* Masonry */,
+				6D7C42F61E4D961E00231135 /* TPKeyboardAvoiding */,
+			);
+			name = Vendors;
+			path = SmartDeviceLink_Example/Classes/Vendors;
+			sourceTree = SOURCE_ROOT;
+		};
+		6D7C42DC1E4D961E00231135 /* Masonry */ = {
+			isa = PBXGroup;
+			children = (
+				6D7C42DD1E4D961E00231135 /* MASCompositeConstraint.h */,
+				6D7C42DE1E4D961E00231135 /* MASCompositeConstraint.m */,
+				6D7C42DF1E4D961E00231135 /* MASConstraint+Private.h */,
+				6D7C42E01E4D961E00231135 /* MASConstraint.h */,
+				6D7C42E11E4D961E00231135 /* MASConstraint.m */,
+				6D7C42E21E4D961E00231135 /* MASConstraintMaker.h */,
+				6D7C42E31E4D961E00231135 /* MASConstraintMaker.m */,
+				6D7C42E41E4D961E00231135 /* MASLayoutConstraint.h */,
+				6D7C42E51E4D961E00231135 /* MASLayoutConstraint.m */,
+				6D7C42E61E4D961E00231135 /* Masonry.h */,
+				6D7C42E71E4D961E00231135 /* MASUtilities.h */,
+				6D7C42E81E4D961E00231135 /* MASViewAttribute.h */,
+				6D7C42E91E4D961E00231135 /* MASViewAttribute.m */,
+				6D7C42EA1E4D961E00231135 /* MASViewConstraint.h */,
+				6D7C42EB1E4D961E00231135 /* MASViewConstraint.m */,
+				6D7C42EC1E4D961E00231135 /* NSArray+MASAdditions.h */,
+				6D7C42ED1E4D961E00231135 /* NSArray+MASAdditions.m */,
+				6D7C42EE1E4D961E00231135 /* NSArray+MASShorthandAdditions.h */,
+				6D7C42EF1E4D961E00231135 /* NSLayoutConstraint+MASDebugAdditions.h */,
+				6D7C42F01E4D961E00231135 /* NSLayoutConstraint+MASDebugAdditions.m */,
+				6D7C42F11E4D961E00231135 /* View+MASAdditions.h */,
+				6D7C42F21E4D961E00231135 /* View+MASAdditions.m */,
+				6D7C42F31E4D961E00231135 /* View+MASShorthandAdditions.h */,
+				6D7C42F41E4D961E00231135 /* ViewController+MASAdditions.h */,
+				6D7C42F51E4D961E00231135 /* ViewController+MASAdditions.m */,
+			);
+			path = Masonry;
+			sourceTree = "<group>";
+		};
+		6D7C42F61E4D961E00231135 /* TPKeyboardAvoiding */ = {
+			isa = PBXGroup;
+			children = (
+				6D7C42F71E4D961E00231135 /* TPKeyboardAvoidingCollectionView.h */,
+				6D7C42F81E4D961E00231135 /* TPKeyboardAvoidingCollectionView.m */,
+				6D7C42F91E4D961E00231135 /* TPKeyboardAvoidingScrollView.h */,
+				6D7C42FA1E4D961E00231135 /* TPKeyboardAvoidingScrollView.m */,
+				6D7C42FB1E4D961E00231135 /* TPKeyboardAvoidingTableView.h */,
+				6D7C42FC1E4D961E00231135 /* TPKeyboardAvoidingTableView.m */,
+				6D7C42FD1E4D961E00231135 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				6D7C42FE1E4D961E00231135 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+			);
+			path = TPKeyboardAvoiding;
+			sourceTree = "<group>";
+		};
 		DA1166D71D14601C00438CEA /* Touches */ = {
 			isa = PBXGroup;
 			children = (
@@ -3900,6 +4096,7 @@
 				E9C32B931AB20BA200F283AF /* SDLIAPSessionDelegate.h in Headers */,
 				5DE5ABB81B0E38C90067BB02 /* SDLSystemRequestResponse.h in Headers */,
 				5D61FCA51A84238C00846EE7 /* SDLEndAudioPassThruResponse.h in Headers */,
+				6D7C42BB1E4D94B400231135 /* PTChannel.h in Headers */,
 				5D3E48CB1D7722FE0000BFEF /* NSBundle+SDLBundle.h in Headers */,
 				5D61FD851A84238C00846EE7 /* SDLSetDisplayLayoutResponse.h in Headers */,
 				5D61FD751A84238C00846EE7 /* SDLRPCResponse.h in Headers */,
@@ -4041,6 +4238,7 @@
 				5D61FDE91A84238C00846EE7 /* SDLUnsubscribeButtonResponse.h in Headers */,
 				5D61FCD51A84238C00846EE7 /* SDLImageType.h in Headers */,
 				5D61FC2F1A84238C00846EE7 /* SDLAddCommandResponse.h in Headers */,
+				6D7C42AE1E4D943900231135 /* SDLUSBMUXDTransport.h in Headers */,
 				5D61FD631A84238C00846EE7 /* SDLResetGlobalProperties.h in Headers */,
 				5D61FDD71A84238C00846EE7 /* SDLTouchType.h in Headers */,
 				5D61FDD31A84238C00846EE7 /* SDLTouchEvent.h in Headers */,
@@ -4088,6 +4286,7 @@
 				5D61FCF21A84238C00846EE7 /* SDLLockScreenStatus.h in Headers */,
 				5D61FCD31A84238C00846EE7 /* SDLImageResolution.h in Headers */,
 				5D61FD541A84238C00846EE7 /* SDLProxyListener.h in Headers */,
+				6D7C42BA1E4D94B400231135 /* Peertalk.h in Headers */,
 				5D61FD731A84238C00846EE7 /* SDLRPCRequestFactory.h in Headers */,
 				5D61FC5D1A84238C00846EE7 /* SDLChangeRegistrationResponse.h in Headers */,
 				5D61FDCD1A84238C00846EE7 /* SDLTimerMode.h in Headers */,
@@ -4103,6 +4302,7 @@
 				5D61FD2D1A84238C00846EE7 /* SDLPermissionItem.h in Headers */,
 				5D61FCD11A84238C00846EE7 /* SDLImageFieldName.h in Headers */,
 				5DCF76F91ACDD7CD00BB647B /* SDLSendLocationResponse.h in Headers */,
+				6D7C42C01E4D94B400231135 /* PTUSBHub.h in Headers */,
 				5D61FD391A84238C00846EE7 /* SDLPrerecordedSpeech.h in Headers */,
 				5D61FC671A84238C00846EE7 /* SDLComponentVolumeStatus.h in Headers */,
 				5D61FE0F1A84238C00846EE7 /* SDLVRHelpItem.h in Headers */,
@@ -4122,6 +4322,7 @@
 				5D61FDD51A84238C00846EE7 /* SDLTouchEventCapabilities.h in Headers */,
 				5D61FD0B1A84238C00846EE7 /* SDLOnEncodedSyncPData.h in Headers */,
 				5D61FC631A84238C00846EE7 /* SDLClusterModeStatus.h in Headers */,
+				6D7C42BD1E4D94B400231135 /* PTPrivate.h in Headers */,
 				5D61FD371A84238C00846EE7 /* SDLPredefinedLayout.h in Headers */,
 				5D61FDE31A84238C00846EE7 /* SDLUnregisterAppInterface.h in Headers */,
 				5D61FD331A84238C00846EE7 /* SDLPowerModeQualificationStatus.h in Headers */,
@@ -4158,6 +4359,7 @@
 				E9C32B9C1AB20C5900F283AF /* EAAccessory+SDLProtocols.h in Headers */,
 				5D61FE0B1A84238C00846EE7 /* SDLVehicleType.h in Headers */,
 				5D61FCC31A84238C00846EE7 /* SDLHMIPermissions.h in Headers */,
+				6D7C42BE1E4D94B400231135 /* PTProtocol.h in Headers */,
 				5D61FE131A84238C00846EE7 /* SDLWiperStatus.h in Headers */,
 				5D16545A1D3E7A1600554D93 /* SDLLifecycleManager.h in Headers */,
 				5D61FCBD1A84238C00846EE7 /* SDLHeadLampStatus.h in Headers */,
@@ -4338,6 +4540,7 @@
 				5D0218F91A8E7A7300D1BF62 /* ConnectionTCPTableViewController.storyboard in Resources */,
 				5D0219051A8E9F6D00D1BF62 /* ConnectionIAPTableViewController.storyboard in Resources */,
 				5D4029E31A76F0760006B0C2 /* LaunchScreen.xib in Resources */,
+				6D7C42DA1E4D958F00231135 /* ConnectionUSBMUXDTableViewController.storyboard in Resources */,
 				5D4029D41A76F0340006B0C2 /* Images.xcassets in Resources */,
 				5D4029E41A76F0760006B0C2 /* Main.storyboard in Resources */,
 			);
@@ -4393,15 +4596,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D7C43001E4D961E00231135 /* MASConstraint.m in Sources */,
+				6D7C43031E4D961E00231135 /* MASViewAttribute.m in Sources */,
+				6D7C43011E4D961E00231135 /* MASConstraintMaker.m in Sources */,
+				6D7C42CB1E4D951300231135 /* BaseScrollViewController.m in Sources */,
 				5D4832A51A94F90D00252386 /* ConnectionTransitionContext.m in Sources */,
 				5D0218FC1A8E7E1700D1BF62 /* ConnectionContainerViewController.m in Sources */,
+				6D7C43091E4D961E00231135 /* TPKeyboardAvoidingCollectionView.m in Sources */,
+				6D7C430F1E4D9FF200231135 /* AlertViewController.m in Sources */,
+				6D7C42D71E4D953F00231135 /* RPCTableViewController.m in Sources */,
+				6D7C43041E4D961E00231135 /* MASViewConstraint.m in Sources */,
+				6D7C430A1E4D961E00231135 /* TPKeyboardAvoidingScrollView.m in Sources */,
+				6D7C43071E4D961E00231135 /* View+MASAdditions.m in Sources */,
+				6D7C42FF1E4D961E00231135 /* MASCompositeConstraint.m in Sources */,
+				6D7C42CE1E4D951300231135 /* ShowViewController.m in Sources */,
 				5D0218FF1A8E9E0D00D1BF62 /* ConnectionIAPTableViewController.m in Sources */,
 				5D48329D1A8EA33D00252386 /* Preferences.m in Sources */,
+				6D7C43021E4D961E00231135 /* MASLayoutConstraint.m in Sources */,
 				5D59350F1A855EB300687FB9 /* AppDelegate.m in Sources */,
 				5D5935121A855EBE00687FB9 /* main.m in Sources */,
 				5D4832A81A95191B00252386 /* ConnectionAnimatedTransition.m in Sources */,
 				5D4832A11A92868E00252386 /* ProxyManager.m in Sources */,
+				6D7C42CD1E4D951300231135 /* BaseViewController.m in Sources */,
+				6D7C430B1E4D961E00231135 /* TPKeyboardAvoidingTableView.m in Sources */,
+				6D7C43061E4D961E00231135 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				6D7C42AF1E4D943900231135 /* SDLUSBMUXDTransport.m in Sources */,
+				6D7C42D41E4D953600231135 /* LogTableViewController.m in Sources */,
+				6D7C43051E4D961E00231135 /* NSArray+MASAdditions.m in Sources */,
+				6D7C43081E4D961E00231135 /* ViewController+MASAdditions.m in Sources */,
+				6D7C430C1E4D961E00231135 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
+				6D7C42CC1E4D951300231135 /* BaseTableViewController.m in Sources */,
 				5D0218F61A8E79C400D1BF62 /* ConnectionTCPTableViewController.m in Sources */,
+				6D7C42D31E4D953600231135 /* ConnectionUSBMUXDTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4474,6 +4700,7 @@
 				5D61FDFE1A84238C00846EE7 /* SDLVehicleDataActiveStatus.m in Sources */,
 				5D61FCD01A84238C00846EE7 /* SDLImageField.m in Sources */,
 				5D61FC3C1A84238C00846EE7 /* SDLAlertManeuverResponse.m in Sources */,
+				6D7C42BF1E4D94B400231135 /* PTProtocol.m in Sources */,
 				5D61FC6A1A84238C00846EE7 /* SDLConsoleController.m in Sources */,
 				DA9F7E741DCC004C00ACAE48 /* SDLGetWaypointsResponse.m in Sources */,
 				5D61FD4D1A84238C00846EE7 /* SDLProtocolMessageDisassembler.m in Sources */,
@@ -4496,6 +4723,7 @@
 				5D61FDB21A84238C00846EE7 /* SDLSubscribeVehicleData.m in Sources */,
 				5D61FC991A84238C00846EE7 /* SDLECallInfo.m in Sources */,
 				5D61FD601A84238C00846EE7 /* SDLRegisterAppInterfaceResponse.m in Sources */,
+				6D7C42C11E4D94B400231135 /* PTUSBHub.m in Sources */,
 				DAC572621D10C5020004288B /* SDLPinchGesture.m in Sources */,
 				5D61FCF51A84238C00846EE7 /* SDLMaintenanceModeStatus.m in Sources */,
 				5D61FCD81A84238C00846EE7 /* SDLInteractionMode.m in Sources */,
@@ -4572,6 +4800,7 @@
 				E9C32B9D1AB20C5900F283AF /* EAAccessory+SDLProtocols.m in Sources */,
 				5D61FCC61A84238C00846EE7 /* SDLHMIZoneCapabilities.m in Sources */,
 				5D61FD161A84238C00846EE7 /* SDLOnLockScreenStatus.m in Sources */,
+				6D7C42BC1E4D94B400231135 /* PTChannel.m in Sources */,
 				5D61FDAE1A84238C00846EE7 /* SDLSubscribeButton.m in Sources */,
 				DA9F7E6C1DCBFB0700ACAE48 /* SDLDeliveryMode.m in Sources */,
 				5D61FC581A84238C00846EE7 /* SDLButtonPressMode.m in Sources */,
@@ -4581,6 +4810,7 @@
 				5D61FC771A84238C00846EE7 /* SDLDeleteFile.m in Sources */,
 				5D61FC811A84238C00846EE7 /* SDLDeleteSubMenuResponse.m in Sources */,
 				DA9F7E681DCBFAD400ACAE48 /* SDLOasisAddress.m in Sources */,
+				6D7C42B01E4D943900231135 /* SDLUSBMUXDTransport.m in Sources */,
 				5D61FC7B1A84238C00846EE7 /* SDLDeleteInteractionChoiceSet.m in Sources */,
 				5D61FDC01A84238C00846EE7 /* SDLSystemRequest.m in Sources */,
 				5D61FD021A84238C00846EE7 /* SDLOnAudioPassThru.m in Sources */,
@@ -5069,6 +5299,14 @@
 			);
 			name = SDLLockScreen.storyboard;
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		6D7C42D81E4D958F00231135 /* ConnectionUSBMUXDTableViewController.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6D7C42D91E4D958F00231135 /* Base */,
+			);
+			name = ConnectionUSBMUXDTableViewController.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

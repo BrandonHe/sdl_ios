@@ -74,7 +74,7 @@ SDLLifecycleState *const SDLLifecycleStateReady = @"Ready";
 #pragma mark Lifecycle
 
 - (instancetype)init {
-    return [self initWithConfiguration:[SDLConfiguration configurationWithLifecycle:[SDLLifecycleConfiguration defaultConfigurationWithAppName:@"SDL APP" appId:@"001"] lockScreen:[SDLLockScreenConfiguration disabledConfiguration]] delegate:nil];
+    return [self initWithConfiguration:[SDLConfiguration configurationWithLifecycle:[SDLLifecycleConfiguration defaultConfigurationWithAppName:@"SDL APP" appId:@"001" transportType:SDLTransportTypeTCP] lockScreen:[SDLLockScreenConfiguration disabledConfiguration]] delegate:nil];
 }
 
 - (instancetype)initWithConfiguration:(SDLConfiguration *)configuration delegate:(nullable id<SDLManagerDelegate>)delegate {
