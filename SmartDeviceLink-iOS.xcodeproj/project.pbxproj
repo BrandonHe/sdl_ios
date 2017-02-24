@@ -885,17 +885,16 @@
 		5DEE55C01B8509CB004F0D0F /* SDLURLRequestTaskSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DEE55BF1B8509CB004F0D0F /* SDLURLRequestTaskSpec.m */; };
 		5DF2BB9D1B94E38A00CE5994 /* SDLURLSessionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DF2BB9C1B94E38A00CE5994 /* SDLURLSessionSpec.m */; };
 		5DFFB9151BD7C89700DB3F04 /* SDLConnectionManagerType.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DFFB9141BD7C89700DB3F04 /* SDLConnectionManagerType.h */; };
+		6D2D22571E5D7D09000C594C /* SDLUSBMUXDChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D2D224F1E5D7D09000C594C /* SDLUSBMUXDChannel.h */; };
+		6D2D22581E5D7D09000C594C /* SDLUSBMUXDChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2D22501E5D7D09000C594C /* SDLUSBMUXDChannel.m */; };
+		6D2D22591E5D7D09000C594C /* SDLUSBMUXDPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D2D22511E5D7D09000C594C /* SDLUSBMUXDPrivate.h */; };
+		6D2D225A1E5D7D09000C594C /* SDLUSBMUXDProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D2D22521E5D7D09000C594C /* SDLUSBMUXDProtocol.h */; };
+		6D2D225B1E5D7D09000C594C /* SDLUSBMUXDProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2D22531E5D7D09000C594C /* SDLUSBMUXDProtocol.m */; };
+		6D2D225C1E5D7D09000C594C /* SDLUSBMUXDUSBHub.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D2D22541E5D7D09000C594C /* SDLUSBMUXDUSBHub.h */; };
+		6D2D225D1E5D7D09000C594C /* SDLUSBMUXDUSBHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2D22551E5D7D09000C594C /* SDLUSBMUXDUSBHub.m */; };
 		6D7C42AE1E4D943900231135 /* SDLUSBMUXDTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7C42AC1E4D943900231135 /* SDLUSBMUXDTransport.h */; };
 		6D7C42AF1E4D943900231135 /* SDLUSBMUXDTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42AD1E4D943900231135 /* SDLUSBMUXDTransport.m */; };
 		6D7C42B01E4D943900231135 /* SDLUSBMUXDTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42AD1E4D943900231135 /* SDLUSBMUXDTransport.m */; };
-		6D7C42BA1E4D94B400231135 /* Peertalk.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7C42B21E4D94B400231135 /* Peertalk.h */; };
-		6D7C42BB1E4D94B400231135 /* PTChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7C42B31E4D94B400231135 /* PTChannel.h */; };
-		6D7C42BC1E4D94B400231135 /* PTChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42B41E4D94B400231135 /* PTChannel.m */; };
-		6D7C42BD1E4D94B400231135 /* PTPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7C42B51E4D94B400231135 /* PTPrivate.h */; };
-		6D7C42BE1E4D94B400231135 /* PTProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7C42B61E4D94B400231135 /* PTProtocol.h */; };
-		6D7C42BF1E4D94B400231135 /* PTProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42B71E4D94B400231135 /* PTProtocol.m */; };
-		6D7C42C01E4D94B400231135 /* PTUSBHub.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7C42B81E4D94B400231135 /* PTUSBHub.h */; };
-		6D7C42C11E4D94B400231135 /* PTUSBHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42B91E4D94B400231135 /* PTUSBHub.m */; };
 		6D7C42CB1E4D951300231135 /* BaseScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42C41E4D951300231135 /* BaseScrollViewController.m */; };
 		6D7C42CC1E4D951300231135 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42C61E4D951300231135 /* BaseTableViewController.m */; };
 		6D7C42CD1E4D951300231135 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42C81E4D951300231135 /* BaseViewController.m */; };
@@ -1958,16 +1957,15 @@
 		5DEE55BF1B8509CB004F0D0F /* SDLURLRequestTaskSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDLURLRequestTaskSpec.m; path = "UtilitiesSpecs/HTTP Connection/SDLURLRequestTaskSpec.m"; sourceTree = "<group>"; };
 		5DF2BB9C1B94E38A00CE5994 /* SDLURLSessionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDLURLSessionSpec.m; path = "UtilitiesSpecs/HTTP Connection/SDLURLSessionSpec.m"; sourceTree = "<group>"; };
 		5DFFB9141BD7C89700DB3F04 /* SDLConnectionManagerType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLConnectionManagerType.h; sourceTree = "<group>"; };
+		6D2D224F1E5D7D09000C594C /* SDLUSBMUXDChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLUSBMUXDChannel.h; sourceTree = "<group>"; };
+		6D2D22501E5D7D09000C594C /* SDLUSBMUXDChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLUSBMUXDChannel.m; sourceTree = "<group>"; };
+		6D2D22511E5D7D09000C594C /* SDLUSBMUXDPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLUSBMUXDPrivate.h; sourceTree = "<group>"; };
+		6D2D22521E5D7D09000C594C /* SDLUSBMUXDProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLUSBMUXDProtocol.h; sourceTree = "<group>"; };
+		6D2D22531E5D7D09000C594C /* SDLUSBMUXDProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLUSBMUXDProtocol.m; sourceTree = "<group>"; };
+		6D2D22541E5D7D09000C594C /* SDLUSBMUXDUSBHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLUSBMUXDUSBHub.h; sourceTree = "<group>"; };
+		6D2D22551E5D7D09000C594C /* SDLUSBMUXDUSBHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLUSBMUXDUSBHub.m; sourceTree = "<group>"; };
 		6D7C42AC1E4D943900231135 /* SDLUSBMUXDTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLUSBMUXDTransport.h; sourceTree = "<group>"; };
 		6D7C42AD1E4D943900231135 /* SDLUSBMUXDTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLUSBMUXDTransport.m; sourceTree = "<group>"; };
-		6D7C42B21E4D94B400231135 /* Peertalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Peertalk.h; sourceTree = "<group>"; };
-		6D7C42B31E4D94B400231135 /* PTChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTChannel.h; sourceTree = "<group>"; };
-		6D7C42B41E4D94B400231135 /* PTChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTChannel.m; sourceTree = "<group>"; };
-		6D7C42B51E4D94B400231135 /* PTPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTPrivate.h; sourceTree = "<group>"; };
-		6D7C42B61E4D94B400231135 /* PTProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTProtocol.h; sourceTree = "<group>"; };
-		6D7C42B71E4D94B400231135 /* PTProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTProtocol.m; sourceTree = "<group>"; };
-		6D7C42B81E4D94B400231135 /* PTUSBHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTUSBHub.h; sourceTree = "<group>"; };
-		6D7C42B91E4D94B400231135 /* PTUSBHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTUSBHub.m; sourceTree = "<group>"; };
 		6D7C42C31E4D951300231135 /* BaseScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseScrollViewController.h; sourceTree = "<group>"; };
 		6D7C42C41E4D951300231135 /* BaseScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseScrollViewController.m; sourceTree = "<group>"; };
 		6D7C42C51E4D951300231135 /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
@@ -3201,7 +3199,7 @@
 				E9C32B831AB20B2900F283AF /* @categories */,
 				5D5934F71A8519A700687FB9 /* JSON */,
 				5D5934F91A851A8000687FB9 /* Prioritized Objects */,
-				6D7C42B11E4D94B400231135 /* Peertalk */,
+				6D2D224D1E5D7D09000C594C /* USBMUXD */,
 				5D61FAD21A84238A00846EE7 /* SDLHexUtility.h */,
 				5D61FAD31A84238A00846EE7 /* SDLHexUtility.m */,
 				5D61FAED1A84238A00846EE7 /* SDLJingle.h */,
@@ -3852,19 +3850,18 @@
 			name = "HTTP Connection";
 			sourceTree = "<group>";
 		};
-		6D7C42B11E4D94B400231135 /* Peertalk */ = {
+		6D2D224D1E5D7D09000C594C /* USBMUXD */ = {
 			isa = PBXGroup;
 			children = (
-				6D7C42B21E4D94B400231135 /* Peertalk.h */,
-				6D7C42B31E4D94B400231135 /* PTChannel.h */,
-				6D7C42B41E4D94B400231135 /* PTChannel.m */,
-				6D7C42B51E4D94B400231135 /* PTPrivate.h */,
-				6D7C42B61E4D94B400231135 /* PTProtocol.h */,
-				6D7C42B71E4D94B400231135 /* PTProtocol.m */,
-				6D7C42B81E4D94B400231135 /* PTUSBHub.h */,
-				6D7C42B91E4D94B400231135 /* PTUSBHub.m */,
+				6D2D22511E5D7D09000C594C /* SDLUSBMUXDPrivate.h */,
+				6D2D224F1E5D7D09000C594C /* SDLUSBMUXDChannel.h */,
+				6D2D22501E5D7D09000C594C /* SDLUSBMUXDChannel.m */,
+				6D2D22521E5D7D09000C594C /* SDLUSBMUXDProtocol.h */,
+				6D2D22531E5D7D09000C594C /* SDLUSBMUXDProtocol.m */,
+				6D2D22541E5D7D09000C594C /* SDLUSBMUXDUSBHub.h */,
+				6D2D22551E5D7D09000C594C /* SDLUSBMUXDUSBHub.m */,
 			);
-			path = Peertalk;
+			path = USBMUXD;
 			sourceTree = "<group>";
 		};
 		6D7C42C21E4D951300231135 /* RPC */ = {
@@ -4096,7 +4093,7 @@
 				E9C32B931AB20BA200F283AF /* SDLIAPSessionDelegate.h in Headers */,
 				5DE5ABB81B0E38C90067BB02 /* SDLSystemRequestResponse.h in Headers */,
 				5D61FCA51A84238C00846EE7 /* SDLEndAudioPassThruResponse.h in Headers */,
-				6D7C42BB1E4D94B400231135 /* PTChannel.h in Headers */,
+				6D2D22571E5D7D09000C594C /* SDLUSBMUXDChannel.h in Headers */,
 				5D3E48CB1D7722FE0000BFEF /* NSBundle+SDLBundle.h in Headers */,
 				5D61FD851A84238C00846EE7 /* SDLSetDisplayLayoutResponse.h in Headers */,
 				5D61FD751A84238C00846EE7 /* SDLRPCResponse.h in Headers */,
@@ -4286,7 +4283,6 @@
 				5D61FCF21A84238C00846EE7 /* SDLLockScreenStatus.h in Headers */,
 				5D61FCD31A84238C00846EE7 /* SDLImageResolution.h in Headers */,
 				5D61FD541A84238C00846EE7 /* SDLProxyListener.h in Headers */,
-				6D7C42BA1E4D94B400231135 /* Peertalk.h in Headers */,
 				5D61FD731A84238C00846EE7 /* SDLRPCRequestFactory.h in Headers */,
 				5D61FC5D1A84238C00846EE7 /* SDLChangeRegistrationResponse.h in Headers */,
 				5D61FDCD1A84238C00846EE7 /* SDLTimerMode.h in Headers */,
@@ -4302,7 +4298,7 @@
 				5D61FD2D1A84238C00846EE7 /* SDLPermissionItem.h in Headers */,
 				5D61FCD11A84238C00846EE7 /* SDLImageFieldName.h in Headers */,
 				5DCF76F91ACDD7CD00BB647B /* SDLSendLocationResponse.h in Headers */,
-				6D7C42C01E4D94B400231135 /* PTUSBHub.h in Headers */,
+				6D2D225C1E5D7D09000C594C /* SDLUSBMUXDUSBHub.h in Headers */,
 				5D61FD391A84238C00846EE7 /* SDLPrerecordedSpeech.h in Headers */,
 				5D61FC671A84238C00846EE7 /* SDLComponentVolumeStatus.h in Headers */,
 				5D61FE0F1A84238C00846EE7 /* SDLVRHelpItem.h in Headers */,
@@ -4322,7 +4318,7 @@
 				5D61FDD51A84238C00846EE7 /* SDLTouchEventCapabilities.h in Headers */,
 				5D61FD0B1A84238C00846EE7 /* SDLOnEncodedSyncPData.h in Headers */,
 				5D61FC631A84238C00846EE7 /* SDLClusterModeStatus.h in Headers */,
-				6D7C42BD1E4D94B400231135 /* PTPrivate.h in Headers */,
+				6D2D22591E5D7D09000C594C /* SDLUSBMUXDPrivate.h in Headers */,
 				5D61FD371A84238C00846EE7 /* SDLPredefinedLayout.h in Headers */,
 				5D61FDE31A84238C00846EE7 /* SDLUnregisterAppInterface.h in Headers */,
 				5D61FD331A84238C00846EE7 /* SDLPowerModeQualificationStatus.h in Headers */,
@@ -4359,7 +4355,7 @@
 				E9C32B9C1AB20C5900F283AF /* EAAccessory+SDLProtocols.h in Headers */,
 				5D61FE0B1A84238C00846EE7 /* SDLVehicleType.h in Headers */,
 				5D61FCC31A84238C00846EE7 /* SDLHMIPermissions.h in Headers */,
-				6D7C42BE1E4D94B400231135 /* PTProtocol.h in Headers */,
+				6D2D225A1E5D7D09000C594C /* SDLUSBMUXDProtocol.h in Headers */,
 				5D61FE131A84238C00846EE7 /* SDLWiperStatus.h in Headers */,
 				5D16545A1D3E7A1600554D93 /* SDLLifecycleManager.h in Headers */,
 				5D61FCBD1A84238C00846EE7 /* SDLHeadLampStatus.h in Headers */,
@@ -4700,7 +4696,7 @@
 				5D61FDFE1A84238C00846EE7 /* SDLVehicleDataActiveStatus.m in Sources */,
 				5D61FCD01A84238C00846EE7 /* SDLImageField.m in Sources */,
 				5D61FC3C1A84238C00846EE7 /* SDLAlertManeuverResponse.m in Sources */,
-				6D7C42BF1E4D94B400231135 /* PTProtocol.m in Sources */,
+				6D2D225B1E5D7D09000C594C /* SDLUSBMUXDProtocol.m in Sources */,
 				5D61FC6A1A84238C00846EE7 /* SDLConsoleController.m in Sources */,
 				DA9F7E741DCC004C00ACAE48 /* SDLGetWaypointsResponse.m in Sources */,
 				5D61FD4D1A84238C00846EE7 /* SDLProtocolMessageDisassembler.m in Sources */,
@@ -4723,7 +4719,7 @@
 				5D61FDB21A84238C00846EE7 /* SDLSubscribeVehicleData.m in Sources */,
 				5D61FC991A84238C00846EE7 /* SDLECallInfo.m in Sources */,
 				5D61FD601A84238C00846EE7 /* SDLRegisterAppInterfaceResponse.m in Sources */,
-				6D7C42C11E4D94B400231135 /* PTUSBHub.m in Sources */,
+				6D2D225D1E5D7D09000C594C /* SDLUSBMUXDUSBHub.m in Sources */,
 				DAC572621D10C5020004288B /* SDLPinchGesture.m in Sources */,
 				5D61FCF51A84238C00846EE7 /* SDLMaintenanceModeStatus.m in Sources */,
 				5D61FCD81A84238C00846EE7 /* SDLInteractionMode.m in Sources */,
@@ -4800,7 +4796,7 @@
 				E9C32B9D1AB20C5900F283AF /* EAAccessory+SDLProtocols.m in Sources */,
 				5D61FCC61A84238C00846EE7 /* SDLHMIZoneCapabilities.m in Sources */,
 				5D61FD161A84238C00846EE7 /* SDLOnLockScreenStatus.m in Sources */,
-				6D7C42BC1E4D94B400231135 /* PTChannel.m in Sources */,
+				6D2D22581E5D7D09000C594C /* SDLUSBMUXDChannel.m in Sources */,
 				5D61FDAE1A84238C00846EE7 /* SDLSubscribeButton.m in Sources */,
 				DA9F7E6C1DCBFB0700ACAE48 /* SDLDeliveryMode.m in Sources */,
 				5D61FC581A84238C00846EE7 /* SDLButtonPressMode.m in Sources */,

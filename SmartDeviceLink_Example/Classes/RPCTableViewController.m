@@ -66,6 +66,8 @@
     switch (state) {
         case ProxyStateStopped: {
             [[ProxyManager sharedManager] startUSBMUXD];
+            
+            [self performSelector:@selector(connectTimeout) withObject:nil afterDelay:30];
         } break;
         case ProxyStateSearchingForConnection: {
             [[ProxyManager sharedManager] reset];
@@ -139,6 +141,12 @@
     UIViewController *viewController = [[NSClassFromString([dic objectForKey:@"className"]) alloc] init];
     viewController.title = [dic objectForKey:@"rpcName"];
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)connectTimeout {
+    if ([ProxyManager sharedManager].state != ProxyStateConnected) {
+        [[ProxyManager sharedManager] reset];
+    }
 }
 
 @end

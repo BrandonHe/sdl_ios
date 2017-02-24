@@ -1,17 +1,17 @@
-#import "PTProtocol.h"
-#import "PTPrivate.h"
+#import "SDLUSBMUXDProtocol.h"
+#import "SDLUSBMUXDPrivate.h"
 #import <objc/runtime.h>
 
 //#if TARGET_OS_IPHONE
-//#import "PTViewController.h"
+//#import "SDLUSBMUXDViewController.h"
 //#endif
 
-static const uint32_t PTProtocolVersion1 = 1;
+static const uint32_t SDLUSBMUXDProtocolVersion1 = 1;
 
-NSString * const PTProtocolErrorDomain = @"PTProtocolError";
+NSString * const SDLUSBMUXDProtocolErrorDomain = @"SDLUSBMUXDProtocolError";
 
 // This is what we send as the header for each frame.
-typedef struct _PTFrame {
+typedef struct _SDLUSBMUXDFrame {
   // The version of the frame and protocol.
   uint32_t version;
 
@@ -27,10 +27,10 @@ typedef struct _PTFrame {
   // following, constituting application-specific data.
   uint32_t payloadSize;
 
-} PTFrame;
+} SDLUSBMUXDFrame;
 
 
-@interface PTProtocol () {
+@interface SDLUSBMUXDProtocol () {
   uint32_t nextFrameTag_;
   @public
   dispatch_queue_t queue_;
@@ -41,13 +41,13 @@ typedef struct _PTFrame {
 
 static void _release_queue_local_protocol(void *objcobj) {
   if (objcobj) {
-    PTProtocol *protocol = (__bridge_transfer id)objcobj;
+    SDLUSBMUXDProtocol *protocol = (__bridge_transfer id)objcobj;
     protocol->queue_ = NULL;
   }
 }
 
 
-@interface RQueueLocalIOFrameProtocol : PTProtocol
+@interface RQueueLocalIOFrameProtocol : SDLUSBMUXDProtocol
 @end
 @implementation RQueueLocalIOFrameProtocol
 - (void)setQueue:(dispatch_queue_t)queue {
@@ -55,18 +55,18 @@ static void _release_queue_local_protocol(void *objcobj) {
 @end
 
 
-@implementation PTProtocol
+@implementation SDLUSBMUXDProtocol
 
 
-+ (PTProtocol*)sharedProtocolForQueue:(dispatch_queue_t)queue {
++ (SDLUSBMUXDProtocol*)sharedProtocolForQueue:(dispatch_queue_t)queue {
   static const char currentQueueFrameProtocolKey;
   //dispatch_queue_t queue = dispatch_get_current_queue();
-  PTProtocol *currentQueueFrameProtocol = (__bridge PTProtocol*)dispatch_queue_get_specific(queue, &currentQueueFrameProtocolKey);
+  SDLUSBMUXDProtocol *currentQueueFrameProtocol = (__bridge SDLUSBMUXDProtocol*)dispatch_queue_get_specific(queue, &currentQueueFrameProtocolKey);
   if (!currentQueueFrameProtocol) {
     currentQueueFrameProtocol = [[RQueueLocalIOFrameProtocol alloc] initWithDispatchQueue:NULL];
     currentQueueFrameProtocol->queue_ = queue; // reference, no retain, since we would create cyclic references
     dispatch_queue_set_specific(queue, &currentQueueFrameProtocolKey, (__bridge_retained void*)currentQueueFrameProtocol, &_release_queue_local_protocol);
-    return (__bridge PTProtocol*)dispatch_queue_get_specific(queue, &currentQueueFrameProtocolKey); // to avoid race conds
+    return (__bridge SDLUSBMUXDProtocol*)dispatch_queue_get_specific(queue, &currentQueueFrameProtocolKey); // to avoid race conds
   } else {
     return currentQueueFrameProtocol;
   }
@@ -76,7 +76,7 @@ static void _release_queue_local_protocol(void *objcobj) {
 - (id)initWithDispatchQueue:(dispatch_queue_t)queue {
   if (!(self = [super init])) return nil;
   queue_ = queue;
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
   if (queue_) dispatch_retain(queue_);
 #endif
   return self;
@@ -88,7 +88,7 @@ static void _release_queue_local_protocol(void *objcobj) {
 
 - (void)dealloc {
   if (queue_) {
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
     dispatch_release(queue_);
 #endif
   }
@@ -99,7 +99,7 @@ static void _release_queue_local_protocol(void *objcobj) {
 }
 
 - (void)setQueue:(dispatch_queue_t)queue {
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
   dispatch_queue_t prev_queue = queue_;
   queue_ = queue;
   if (queue_) dispatch_retain(queue_);
@@ -120,8 +120,8 @@ static void _release_queue_local_protocol(void *objcobj) {
 
 
 - (dispatch_data_t)createDispatchDataWithFrameOfType:(uint32_t)type frameTag:(uint32_t)frameTag payload:(dispatch_data_t)payload {
-  PTFrame *frame = CFAllocatorAllocate(kCFAllocatorDefault, sizeof(PTFrame), 0);
-  frame->version = htonl(PTProtocolVersion1);
+  SDLUSBMUXDFrame *frame = CFAllocatorAllocate(kCFAllocatorDefault, sizeof(SDLUSBMUXDFrame), 0);
+  frame->version = htonl(SDLUSBMUXDProtocolVersion1);
   frame->type = htonl(type);
   frame->tag = htonl(frameTag);
   
@@ -133,14 +133,14 @@ static void _release_queue_local_protocol(void *objcobj) {
     frame->payloadSize = 0;
   }
   
-  dispatch_data_t frameData = dispatch_data_create((const void*)frame, sizeof(PTFrame), queue_, ^{
+  dispatch_data_t frameData = dispatch_data_create((const void*)frame, sizeof(SDLUSBMUXDFrame), queue_, ^{
     CFAllocatorDeallocate(kCFAllocatorDefault, (void*)frame);
   });
   
   if (payload && frame->payloadSize != 0) {
     // chain frame + payload
     dispatch_data_t data = dispatch_data_create_concat(frameData, payload);
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
     dispatch_release(frameData);
 #endif
     frameData = data;
@@ -193,7 +193,7 @@ static void _release_queue_local_protocol(void *objcobj) {
       callback(_errno == 0 ? nil : [[NSError alloc] initWithDomain:NSPOSIXErrorDomain code:_errno userInfo:nil]);
     }
   });
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
   dispatch_release(frame);
 #endif
 }
@@ -206,9 +206,9 @@ static void _release_queue_local_protocol(void *objcobj) {
 - (void)readFrameOverChannel:(dispatch_io_t)channel callback:(void(^)(NSError *error, uint32_t frameType, uint32_t frameTag, uint32_t payloadSize))callback {
   __block dispatch_data_t allData = NULL;
   
-    dispatch_io_read(channel, 0, sizeof(PTFrame), queue_, ^(bool done, dispatch_data_t data, int error) {
+    dispatch_io_read(channel, 0, sizeof(SDLUSBMUXDFrame), queue_, ^(bool done, dispatch_data_t data, int error) {
 //#if TARGET_OS_IPHONE
-//        PTViewController *vc = (PTViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+//        SDLUSBMUXDViewController *vc = (SDLUSBMUXDViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
 //        [vc appendOutputMessage:[NSString stringWithFormat:@"dispatch_io_read: type=%d data=%p error=%d", frameType, data, error]];
 //#endif
         
@@ -218,11 +218,11 @@ static void _release_queue_local_protocol(void *objcobj) {
     if (dataSize) {
       if (!allData) {
         allData = data;
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
         dispatch_retain(allData);
 #endif
       } else {
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
         dispatch_data_t allDataPrev = allData;
         allData = dispatch_data_create_concat(allData, data);
         dispatch_release(allDataPrev);
@@ -239,23 +239,23 @@ static void _release_queue_local_protocol(void *objcobj) {
       }
       
       if (dataSize == 0) {
-        callback(nil, PTFrameTypeEndOfStream, 0, 0);
+        callback(nil, SDLUSBMUXDFrameTypeEndOfStream, 0, 0);
         return;
       }
       
-      if (!allData || dispatch_data_get_size(allData) < sizeof(PTFrame)) {
-#if PT_DISPATCH_RETAIN_RELEASE
+      if (!allData || dispatch_data_get_size(allData) < sizeof(SDLUSBMUXDFrame)) {
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
         if (allData) dispatch_release(allData);
 #endif
-        callback([[NSError alloc] initWithDomain:PTProtocolErrorDomain code:0 userInfo:nil], 0, 0, 0);
+        callback([[NSError alloc] initWithDomain:SDLUSBMUXDProtocolErrorDomain code:0 userInfo:nil], 0, 0, 0);
         return;
       }
       
-      PTFrame *frame = NULL;
+      SDLUSBMUXDFrame *frame = NULL;
       size_t size = 0;
       
-      PT_PRECISE_LIFETIME dispatch_data_t contiguousData = dispatch_data_create_map(allData, (const void **)&frame, &size); // precise lifetime guarantees bytes in frame will stay valid till the end of scope
-#if PT_DISPATCH_RETAIN_RELEASE
+      SDLUSBMUXD_PRECISE_LIFETIME dispatch_data_t contiguousData = dispatch_data_create_map(allData, (const void **)&frame, &size); // precise lifetime guarantees bytes in frame will stay valid till the end of scope
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
       dispatch_release(allData);
 #endif
       if (!contiguousData) {
@@ -264,8 +264,8 @@ static void _release_queue_local_protocol(void *objcobj) {
       }
         
       frame->version = ntohl(frame->version);
-      if (frame->version != PTProtocolVersion1) {
-        callback([[NSError alloc] initWithDomain:PTProtocolErrorDomain code:0 userInfo:nil], 0, 0, 0);
+      if (frame->version != SDLUSBMUXDProtocolVersion1) {
+        callback([[NSError alloc] initWithDomain:SDLUSBMUXDProtocolErrorDomain code:0 userInfo:nil], 0, 0, 0);
       } else {
         frame->type = ntohl(frame->type);
         frame->tag = ntohl(frame->tag);
@@ -274,7 +274,7 @@ static void _release_queue_local_protocol(void *objcobj) {
           
 //#if TARGET_OS_IPHONE
 //          if (frame->type != 102) {
-//              PTViewController *vc = (PTViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+//              SDLUSBMUXDViewController *vc = (SDLUSBMUXDViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
 //              [vc appendOutputMessage:[NSString stringWithFormat:@"type=%d data=%p error=%d payloadSize=%d", frame->type, data, error, frame->payloadSize]];
 //          }
 //#endif
@@ -283,7 +283,7 @@ static void _release_queue_local_protocol(void *objcobj) {
         callback(nil, frame->type, frame->tag, frame->payloadSize);
       }
       
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
       dispatch_release(contiguousData);
 #endif
     }
@@ -300,11 +300,11 @@ static void _release_queue_local_protocol(void *objcobj) {
     if (dataSize) {
       if (!allData) {
         allData = data;
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
         dispatch_retain(allData);
 #endif
       } else {
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
         dispatch_data_t allDataPrev = allData;
         allData = dispatch_data_create_concat(allData, data);
         dispatch_release(allDataPrev);
@@ -316,7 +316,7 @@ static void _release_queue_local_protocol(void *objcobj) {
     
     if (done) {
       if (error != 0) {
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
         if (allData) dispatch_release(allData);
 #endif
         callback([[NSError alloc] initWithDomain:NSPOSIXErrorDomain code:error userInfo:nil], NULL, NULL, 0);
@@ -324,7 +324,7 @@ static void _release_queue_local_protocol(void *objcobj) {
       }
       
       if (dataSize == 0) {
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
         if (allData) dispatch_release(allData);
 #endif
         callback(nil, NULL, NULL, 0);
@@ -333,11 +333,11 @@ static void _release_queue_local_protocol(void *objcobj) {
       
       uint8_t *buffer = NULL;
       size_t bufferSize = 0;
-      PT_PRECISE_LIFETIME dispatch_data_t contiguousData = NULL;
+      SDLUSBMUXD_PRECISE_LIFETIME dispatch_data_t contiguousData = NULL;
       
       if (allData) {
         contiguousData = dispatch_data_create_map(allData, (const void **)&buffer, &bufferSize);
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
         dispatch_release(allData); allData = NULL;
 #endif
         if (!contiguousData) {
@@ -347,7 +347,7 @@ static void _release_queue_local_protocol(void *objcobj) {
       }
       
       callback(nil, contiguousData, buffer, bufferSize);
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
       if (contiguousData) dispatch_release(contiguousData);
 #endif
     }
@@ -368,7 +368,7 @@ static void _release_queue_local_protocol(void *objcobj) {
 - (void)readFramesOverChannel:(dispatch_io_t)channel onFrame:(void(^)(NSError*, uint32_t, uint32_t, uint32_t, dispatch_block_t))onFrame {
   [self readFrameOverChannel:channel callback:^(NSError *error, uint32_t type, uint32_t tag, uint32_t payloadSize) {
     onFrame(error, type, tag, payloadSize, ^{
-      if (type != PTFrameTypeEndOfStream) {
+      if (type != SDLUSBMUXDFrameTypeEndOfStream) {
         [self readFramesOverChannel:channel onFrame:onFrame];
       }
     });
@@ -379,27 +379,27 @@ static void _release_queue_local_protocol(void *objcobj) {
 @end
 
 
-@interface _PTDispatchData : NSObject {
+@interface _SDLUSBMUXDDispatchData : NSObject {
   dispatch_data_t dispatchData_;
 }
 @end
-@implementation _PTDispatchData
+@implementation _SDLUSBMUXDDispatchData
 - (id)initWithDispatchData:(dispatch_data_t)dispatchData {
   if (!(self = [super init])) return nil;
   dispatchData_ = dispatchData;
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
   dispatch_retain(dispatchData_);
 #endif
   return self;
 }
 - (void)dealloc {
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
   if (dispatchData_) dispatch_release(dispatchData_);
 #endif
 }
 @end
 
-@implementation NSData (PTProtocol)
+@implementation NSData (SDLUSBMUXDProtocol)
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-getter-return-value"
@@ -422,14 +422,14 @@ static void _release_queue_local_protocol(void *objcobj) {
   }
   uint8_t *buffer = NULL;
   size_t bufferSize = 0;
-  PT_PRECISE_LIFETIME dispatch_data_t contiguousData = dispatch_data_create_map(data, (const void **)&buffer, &bufferSize);
+  SDLUSBMUXD_PRECISE_LIFETIME dispatch_data_t contiguousData = dispatch_data_create_map(data, (const void **)&buffer, &bufferSize);
   if (!contiguousData) {
     return nil;
   }
   
-  _PTDispatchData *dispatchDataRef = [[_PTDispatchData alloc] initWithDispatchData:contiguousData];
+  _SDLUSBMUXDDispatchData *dispatchDataRef = [[_SDLUSBMUXDDispatchData alloc] initWithDispatchData:contiguousData];
   NSData *newData = [NSData dataWithBytesNoCopy:(void*)buffer length:bufferSize freeWhenDone:NO];
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
   dispatch_release(contiguousData);
 #endif
   static const bool kDispatchDataRefKey;
@@ -441,7 +441,7 @@ static void _release_queue_local_protocol(void *objcobj) {
 @end
 
 
-@implementation NSDictionary (PTProtocol)
+@implementation NSDictionary (SDLUSBMUXDProtocol)
 
 - (dispatch_data_t)createReferencingDispatchData {
   NSError *error = nil;
@@ -461,12 +461,12 @@ static void _release_queue_local_protocol(void *objcobj) {
   }
   uint8_t *buffer = NULL;
   size_t bufferSize = 0;
-  PT_PRECISE_LIFETIME dispatch_data_t contiguousData = dispatch_data_create_map(data, (const void **)&buffer, &bufferSize);
+  SDLUSBMUXD_PRECISE_LIFETIME dispatch_data_t contiguousData = dispatch_data_create_map(data, (const void **)&buffer, &bufferSize);
   if (!contiguousData) {
     return nil;
   }
   NSDictionary *dict = [NSPropertyListSerialization propertyListWithData:[NSData dataWithBytesNoCopy:(void*)buffer length:bufferSize freeWhenDone:NO] options:NSPropertyListImmutable format:NULL error:nil];
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
   dispatch_release(contiguousData);
 #endif
   return dict;

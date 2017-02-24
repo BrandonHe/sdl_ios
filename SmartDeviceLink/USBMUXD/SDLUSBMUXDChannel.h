@@ -1,25 +1,25 @@
 //
 // Represents a communication channel between two endpoints talking the same
-// PTProtocol.
+// SDLUSBMUXDProtocol.
 //
 #import <Foundation/Foundation.h>
 #import <dispatch/dispatch.h>
 #import <netinet/in.h>
 #import <sys/socket.h>
 
-#import "PTProtocol.h"
-#import "PTUSBHub.h"
+#import "SDLUSBMUXDProtocol.h"
+#import "SDLUSBMUXDUSBHub.h"
 
-@class PTData, PTAddress;
-@protocol PTChannelDelegate;
+@class SDLUSBMUXDData, SDLUSBMUXDAddress;
+@protocol SDLUSBMUXDChannelDelegate;
 
-@interface PTChannel : NSObject
+@interface SDLUSBMUXDChannel : NSObject
 
 // Delegate
-@property (strong) id<PTChannelDelegate> delegate;
+@property (strong) id<SDLUSBMUXDChannelDelegate> delegate;
 
 // Communication protocol. Must not be nil.
-@property PTProtocol *protocol;
+@property SDLUSBMUXDProtocol *protocol;
 
 // YES if this channel is a listening server
 @property (readonly) BOOL isListening;
@@ -31,32 +31,32 @@
 // 8 bytes (64 bits).
 @property (strong) id userInfo;
 
-// Create a new channel using the shared PTProtocol for the current dispatch
+// Create a new channel using the shared SDLUSBMUXDProtocol for the current dispatch
 // queue, with *delegate*.
-+ (PTChannel*)channelWithDelegate:(id<PTChannelDelegate>)delegate;
++ (SDLUSBMUXDChannel*)channelWithDelegate:(id<SDLUSBMUXDChannelDelegate>)delegate;
 
 
 // Initialize a new frame channel, configuring it to use the calling queue's
-// protocol instance (as returned by [PTProtocol sharedProtocolForQueue:
+// protocol instance (as returned by [SDLUSBMUXDProtocol sharedProtocolForQueue:
 //   dispatch_get_current_queue()])
 - (id)init;
 
 // Initialize a new frame channel with a specific protocol.
-- (id)initWithProtocol:(PTProtocol*)protocol;
+- (id)initWithProtocol:(SDLUSBMUXDProtocol*)protocol;
 
 // Initialize a new frame channel with a specific protocol and delegate.
-- (id)initWithProtocol:(PTProtocol*)protocol delegate:(id<PTChannelDelegate>)delegate;
+- (id)initWithProtocol:(SDLUSBMUXDProtocol*)protocol delegate:(id<SDLUSBMUXDChannelDelegate>)delegate;
 
 
 // Connect to a TCP port on a device connected over USB
-- (void)connectToPort:(int)port overUSBHub:(PTUSBHub*)usbHub deviceID:(NSNumber*)deviceID callback:(void(^)(NSError *error))callback;
+- (void)connectToPort:(int)port overUSBHub:(SDLUSBMUXDUSBHub*)usbHub deviceID:(NSNumber*)deviceID callback:(void(^)(NSError *error))callback;
 
 // Connect to a TCP port at IPv4 address. Provided port must NOT be in network
 // byte order. Provided in_addr_t must NOT be in network byte order. A value returned
 // from inet_aton() will be in network byte order. You can use a value of inet_aton()
 // as the address parameter here, but you must flip the byte order before passing the
 // in_addr_t to this function.
-- (void)connectToPort:(in_port_t)port IPv4Address:(in_addr_t)address callback:(void(^)(NSError *error, PTAddress *address))callback;
+- (void)connectToPort:(in_port_t)port IPv4Address:(in_addr_t)address callback:(void(^)(NSError *error, SDLUSBMUXDAddress *address))callback;
 
 // Listen for connections on port and address, effectively starting a socket
 // server. Provided port must NOT be in network byte order. Provided in_addr_t
@@ -87,7 +87,7 @@
 // Wraps a mapped dispatch_data_t object. The memory pointed to by *data* is
 // valid until *dispatchData* is deallocated (normally when the receiver is
 // deallocated).
-@interface PTData : NSObject
+@interface SDLUSBMUXDData : NSObject
 @property (readonly) dispatch_data_t dispatchData;
 @property (readonly) void *data;
 @property (readonly) size_t length;
@@ -95,7 +95,7 @@
 
 
 // Represents a peer's address
-@interface PTAddress : NSObject
+@interface SDLUSBMUXDAddress : NSObject
 // For network addresses, this is the IP address in textual format
 @property (readonly) NSString *name;
 // For network addresses, this is the port number. Otherwise 0 (zero).
@@ -103,24 +103,24 @@
 @end
 
 
-// Protocol for PTChannel delegates
-@protocol PTChannelDelegate <NSObject>
+// Protocol for SDLUSBMUXDChannel delegates
+@protocol SDLUSBMUXDChannelDelegate <NSObject>
 
 @required
 // Invoked when a new frame has arrived on a channel.
-- (void)ioFrameChannel:(PTChannel*)channel didReceiveFrameOfType:(uint32_t)type tag:(uint32_t)tag payload:(PTData*)payload;
+- (void)ioFrameChannel:(SDLUSBMUXDChannel*)channel didReceiveFrameOfType:(uint32_t)type tag:(uint32_t)tag payload:(SDLUSBMUXDData*)payload;
 
 @optional
 // Invoked to accept an incoming frame on a channel. Reply NO ignore the
 // incoming frame. If not implemented by the delegate, all frames are accepted.
-- (BOOL)ioFrameChannel:(PTChannel*)channel shouldAcceptFrameOfType:(uint32_t)type tag:(uint32_t)tag payloadSize:(uint32_t)payloadSize;
+- (BOOL)ioFrameChannel:(SDLUSBMUXDChannel*)channel shouldAcceptFrameOfType:(uint32_t)type tag:(uint32_t)tag payloadSize:(uint32_t)payloadSize;
 
 // Invoked when the channel closed. If it closed because of an error, *error* is
 // a non-nil NSError object.
-- (void)ioFrameChannel:(PTChannel*)channel didEndWithError:(NSError*)error;
+- (void)ioFrameChannel:(SDLUSBMUXDChannel*)channel didEndWithError:(NSError*)error;
 
 // For listening channels, this method is invoked when a new connection has been
 // accepted.
-- (void)ioFrameChannel:(PTChannel*)channel didAcceptConnection:(PTChannel*)otherChannel fromAddress:(PTAddress*)address;
+- (void)ioFrameChannel:(SDLUSBMUXDChannel*)channel didAcceptConnection:(SDLUSBMUXDChannel*)otherChannel fromAddress:(SDLUSBMUXDAddress*)address;
 
 @end
