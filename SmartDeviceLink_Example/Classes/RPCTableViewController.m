@@ -62,6 +62,8 @@
 }
 
 - (void)connect {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(connectTimeout) object:nil];
+    
     ProxyState state = [ProxyManager sharedManager].state;
     switch (state) {
         case ProxyStateStopped: {
@@ -95,21 +97,18 @@
     NSString *newTitle = nil;
     NSString *title = nil;
     
-    _connectButton.enabled = NO;
-    
     switch (newState) {
         case ProxyStateStopped: {
             newTitle = @"ProxyStateStopped";
             title = @"Connect";
-            _connectButton.enabled = YES;
         } break;
         case ProxyStateSearchingForConnection: {
             newTitle = @"ProxyStateSearchingForConnection";
-            title = @"Searching";
+            title = @"Stop Searching";
         } break;
         case ProxyStateConnected: {
             newTitle = @"ProxyStateConnected";
-            title = @"Connected";
+            title = @"Disconnect";
         } break;
         default: break;
     }
