@@ -12,6 +12,10 @@ NSString * const SDLUSBMUXDProtocolErrorDomain = @"SDLUSBMUXDProtocolError";
 
 // This is what we send as the header for each frame.
 typedef struct _SDLUSBMUXDFrame {
+  // This flag data is used as the header flag for separating each frame
+  uint32_t flagSectionOne;
+  uint32_t flagSectionTwo;
+    
   // The version of the frame and protocol.
   uint32_t version;
 
@@ -28,6 +32,12 @@ typedef struct _SDLUSBMUXDFrame {
   uint32_t payloadSize;
 
 } SDLUSBMUXDFrame;
+
+// This flag data is used as the footer flag for separating each frame
+typedef struct _SDLUSBMUXDDataFlag {
+    uint32_t flagSectionOne;
+    uint32_t flagSectionTwo;
+} SDLUSBMUXDDataFlag;
 
 
 @interface SDLUSBMUXDProtocol () {
@@ -120,33 +130,45 @@ static void _release_queue_local_protocol(void *objcobj) {
 
 
 - (dispatch_data_t)createDispatchDataWithFrameOfType:(uint32_t)type frameTag:(uint32_t)frameTag payload:(dispatch_data_t)payload {
-  SDLUSBMUXDFrame *frame = CFAllocatorAllocate(kCFAllocatorDefault, sizeof(SDLUSBMUXDFrame), 0);
-  frame->version = htonl(SDLUSBMUXDProtocolVersion1);
-  frame->type = htonl(type);
-  frame->tag = htonl(frameTag);
-  
-  if (payload) {
-    size_t payloadSize = dispatch_data_get_size(payload);
-    assert(payloadSize <= UINT32_MAX);
-    frame->payloadSize = htonl((uint32_t)payloadSize);
-  } else {
-    frame->payloadSize = 0;
-  }
-  
-  dispatch_data_t frameData = dispatch_data_create((const void*)frame, sizeof(SDLUSBMUXDFrame), queue_, ^{
-    CFAllocatorDeallocate(kCFAllocatorDefault, (void*)frame);
-  });
-  
-  if (payload && frame->payloadSize != 0) {
-    // chain frame + payload
-    dispatch_data_t data = dispatch_data_create_concat(frameData, payload);
+    // header separate flag frame
+    SDLUSBMUXDDataFlag *footerFrame = CFAllocatorAllocate(kCFAllocatorDefault, sizeof(SDLUSBMUXDDataFlag), 0);
+    footerFrame->flagSectionOne = htonl(0xBBBBCCCC);
+    footerFrame->flagSectionTwo = htonl(0xDDDDEEEE);
+    
+    dispatch_data_t footer = dispatch_data_create((const void*)footerFrame, sizeof(SDLUSBMUXDDataFlag), queue_, ^{
+        CFAllocatorDeallocate(kCFAllocatorDefault, (void*)footerFrame);
+    });
+    payload = dispatch_data_create_concat(payload, footer);
+    
+    SDLUSBMUXDFrame *frame = CFAllocatorAllocate(kCFAllocatorDefault, sizeof(SDLUSBMUXDFrame), 0);
+    frame->flagSectionOne = htonl(0xAAAABBBB);
+    frame->flagSectionTwo = htonl(0xCCCCDDDD);
+    frame->version = htonl(SDLUSBMUXDProtocolVersion1);
+    frame->type = htonl(type);
+    frame->tag = htonl(frameTag);
+    
+    if (payload) {
+        size_t payloadSize = dispatch_data_get_size(payload);
+        assert(payloadSize <= UINT32_MAX);
+        frame->payloadSize = htonl((uint32_t)payloadSize);
+    } else {
+        frame->payloadSize = 0;
+    }
+    
+    dispatch_data_t frameData = dispatch_data_create((const void*)frame, sizeof(SDLUSBMUXDFrame), queue_, ^{
+        CFAllocatorDeallocate(kCFAllocatorDefault, (void*)frame);
+    });
+    
+    if (payload && frame->payloadSize != 0) {
+        // chain frame + payload
+        dispatch_data_t data = dispatch_data_create_concat(frameData, payload);
 #if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
-    dispatch_release(frameData);
+        dispatch_release(frameData);
 #endif
-    frameData = data;
-  }
-  
-  return frameData;
+        frameData = data;
+    }
+    
+    return frameData;
 }
 
 
@@ -155,46 +177,15 @@ static void _release_queue_local_protocol(void *objcobj) {
 
 
 - (void)sendFrameOfType:(uint32_t)frameType tag:(uint32_t)tag withPayload:(dispatch_data_t)payload overChannel:(dispatch_io_t)channel callback:(void(^)(NSError*))callback {
-  dispatch_data_t frame = [self createDispatchDataWithFrameOfType:frameType frameTag:tag payload:payload];
+    dispatch_data_t frame = [self createDispatchDataWithFrameOfType:frameType frameTag:tag payload:payload];
     
-    
-    if(frame && (frameType == 100)){
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *cachePath = [paths objectAtIndex:0];
-        NSString *filePath = [cachePath stringByAppendingFormat:@"/data.dat"];
-        const char * a =[filePath UTF8String];
-        
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        
-        int intbuffer[] = { 1, 2, 3, 4 };
-        dispatch_data_t data = dispatch_data_create(intbuffer, 4 * sizeof(int), queue, NULL);
-        data = frame;
-        
-        dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-        // Write
-        dispatch_fd_t fd = open(a, O_RDWR | O_CREAT | O_TRUNC, S_IRWXU | S_IRWXG | S_IRWXO);
-        
-        printf("FD: %d\n", fd);
-        
-        dispatch_write(fd, data, queue,^(dispatch_data_t d, int e) {
-            printf("Written %zu bytes!\n", dispatch_data_get_size(data) - (d ? dispatch_data_get_size(d) : 0));
-            printf("\tError: %d\n", e);
-            dispatch_semaphore_signal(sem);
-        });
-        
-        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        
-        close(fd);
-    }
-    
-    
-  dispatch_io_write(channel, 0, frame, queue_, ^(bool done, dispatch_data_t data, int _errno) {
-    if (done && callback) {
-      callback(_errno == 0 ? nil : [[NSError alloc] initWithDomain:NSPOSIXErrorDomain code:_errno userInfo:nil]);
-    }
-  });
+    dispatch_io_write(channel, 0, frame, queue_, ^(bool done, dispatch_data_t data, int _errno) {
+        if (done && callback) {
+            callback(_errno == 0 ? nil : [[NSError alloc] initWithDomain:NSPOSIXErrorDomain code:_errno userInfo:nil]);
+        }
+    });
 #if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
-  dispatch_release(frame);
+    dispatch_release(frame);
 #endif
 }
 
