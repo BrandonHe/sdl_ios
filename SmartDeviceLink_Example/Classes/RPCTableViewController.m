@@ -39,7 +39,8 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_connectButton];
     
     _dataArray = @[@{@"rpcName": @"Show", @"className": @"ShowViewController"},
-                   @{@"rpcName": @"Alert", @"className": @"AlertViewController"}];
+                   @{@"rpcName": @"Alert", @"className": @"AlertViewController"},
+                   @{@"rpcName": @"StreamingMedia", @"className": @"StreamingMediaViewController"}];
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
     
@@ -67,7 +68,7 @@
     ProxyState state = [ProxyManager sharedManager].state;
     switch (state) {
         case ProxyStateStopped: {
-            [[ProxyManager sharedManager] startUSBMUXD];
+            [[ProxyManager sharedManager] startTCP];
             
             [self performSelector:@selector(connectTimeout) withObject:nil afterDelay:30];
         } break;

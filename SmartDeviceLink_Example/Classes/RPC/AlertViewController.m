@@ -8,10 +8,6 @@
 
 #import "AlertViewController.h"
 
-#import "ProxyManager.h"
-#import "SDLTextAlignment.h"
-#import "SDLProxy.h"
-
 #import "SDLAlert.h"
 
 @interface AlertViewController ()

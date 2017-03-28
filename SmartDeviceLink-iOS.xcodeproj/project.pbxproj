@@ -918,6 +918,8 @@
 		6D7C430B1E4D961E00231135 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42FC1E4D961E00231135 /* TPKeyboardAvoidingTableView.m */; };
 		6D7C430C1E4D961E00231135 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C42FE1E4D961E00231135 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		6D7C430F1E4D9FF200231135 /* AlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C430E1E4D9FF200231135 /* AlertViewController.m */; };
+		6D9E85141E6E44B500C21037 /* StreamingMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9E85131E6E44B500C21037 /* StreamingMediaViewController.m */; };
+		6DFB96621E6FD6A600251A9E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DFB96611E6FD6A600251A9E /* AVFoundation.framework */; };
 		DA4353DF1D271FD10099B8C4 /* CGPointUtilSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4353DE1D271FD10099B8C4 /* CGPointUtilSpec.m */; };
 		DA4353E31D2720A30099B8C4 /* SDLPinchGestureSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4353E21D2720A30099B8C4 /* SDLPinchGestureSpec.m */; };
 		DA4353E91D2721680099B8C4 /* DispatchTimerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4353E61D2721680099B8C4 /* DispatchTimerSpec.m */; };
@@ -2016,6 +2018,9 @@
 		6D7C42FE1E4D961E00231135 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		6D7C430D1E4D9FF200231135 /* AlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertViewController.h; sourceTree = "<group>"; };
 		6D7C430E1E4D9FF200231135 /* AlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertViewController.m; sourceTree = "<group>"; };
+		6D9E85121E6E44B500C21037 /* StreamingMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamingMediaViewController.h; sourceTree = "<group>"; };
+		6D9E85131E6E44B500C21037 /* StreamingMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamingMediaViewController.m; sourceTree = "<group>"; };
+		6DFB96611E6FD6A600251A9E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		DA4353DE1D271FD10099B8C4 /* CGPointUtilSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGPointUtilSpec.m; path = UtilitiesSpecs/Touches/CGPointUtilSpec.m; sourceTree = "<group>"; };
 		DA4353E21D2720A30099B8C4 /* SDLPinchGestureSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDLPinchGestureSpec.m; path = UtilitiesSpecs/Touches/SDLPinchGestureSpec.m; sourceTree = "<group>"; };
 		DA4353E61D2721680099B8C4 /* DispatchTimerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DispatchTimerSpec.m; path = UtilitiesSpecs/Touches/DispatchTimerSpec.m; sourceTree = "<group>"; };
@@ -2110,6 +2115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DFB96621E6FD6A600251A9E /* AVFoundation.framework in Frameworks */,
 				5D61FA331A84237100846EE7 /* SmartDeviceLink.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2579,6 +2585,7 @@
 				5D61FA1D1A84237100846EE7 /* SmartDeviceLink */,
 				5D61FA2C1A84237100846EE7 /* SmartDeviceLinkTests */,
 				5D4019B01A76EC350006B0C2 /* Products */,
+				6DFB96601E6FD6A600251A9E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3877,6 +3884,8 @@
 				6D7C42CA1E4D951300231135 /* ShowViewController.m */,
 				6D7C430D1E4D9FF200231135 /* AlertViewController.h */,
 				6D7C430E1E4D9FF200231135 /* AlertViewController.m */,
+				6D9E85121E6E44B500C21037 /* StreamingMediaViewController.h */,
+				6D9E85131E6E44B500C21037 /* StreamingMediaViewController.m */,
 			);
 			name = RPC;
 			path = SmartDeviceLink_Example/Classes/RPC;
@@ -3937,6 +3946,14 @@
 				6D7C42FE1E4D961E00231135 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
 			);
 			path = TPKeyboardAvoiding;
+			sourceTree = "<group>";
+		};
+		6DFB96601E6FD6A600251A9E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6DFB96611E6FD6A600251A9E /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		DA1166D71D14601C00438CEA /* Touches */ = {
@@ -4614,6 +4631,7 @@
 				5D4832A81A95191B00252386 /* ConnectionAnimatedTransition.m in Sources */,
 				5D4832A11A92868E00252386 /* ProxyManager.m in Sources */,
 				6D7C42CD1E4D951300231135 /* BaseViewController.m in Sources */,
+				6D9E85141E6E44B500C21037 /* StreamingMediaViewController.m in Sources */,
 				6D7C430B1E4D961E00231135 /* TPKeyboardAvoidingTableView.m in Sources */,
 				6D7C43061E4D961E00231135 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				6D7C42AF1E4D943900231135 /* SDLUSBMUXDTransport.m in Sources */,
