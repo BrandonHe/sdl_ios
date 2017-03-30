@@ -68,7 +68,7 @@
     ProxyState state = [ProxyManager sharedManager].state;
     switch (state) {
         case ProxyStateStopped: {
-            [[ProxyManager sharedManager] startTCP];
+            [[ProxyManager sharedManager] startUSBMUXD];
             
             [self performSelector:@selector(connectTimeout) withObject:nil afterDelay:30];
         } break;
