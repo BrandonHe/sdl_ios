@@ -24,11 +24,6 @@
     
     UISegmentedControl *_segmentedControl;
     
-    UILabel *_bitRateLabel;
-    
-    NSDate *_lastDate;
-    NSInteger _dataLength;
-    
     AVCaptureSession *_captureSession;
 }
 @end
@@ -57,16 +52,6 @@
     [_contentView addSubview:_segmentedControl];
     [_segmentedControl mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(segLabel.mas_bottom);
-        make.left.right.equalTo(segLabel);
-        make.height.equalTo(@30);
-    }];
-    
-    _bitRateLabel = [[UILabel alloc] init];
-    _bitRateLabel.font = [UIFont systemFontOfSize:15];
-    _bitRateLabel.backgroundColor = [UIColor redColor];
-    [_contentView addSubview:_bitRateLabel];
-    [_bitRateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(@-100);
         make.left.right.equalTo(segLabel);
         make.height.equalTo(@30);
     }];
@@ -111,13 +96,10 @@
 }
 
 - (void)setupCaptureSession {
-    _lastDate = [NSDate date];
-    _dataLength = 0;
-    
     NSError *error = nil;
     
     // Create the session
-    AVCaptureSession *session = [[AVCaptureSession alloc] init];//负责输入和输出设置之间的数据传递
+    AVCaptureSession *session = [[AVCaptureSession alloc] init];
     
     // Configure the session to produce lower resolution video frames, if your
     // processing algorithm can cope. We'll specify medium quality for the
@@ -140,11 +122,11 @@
             sessionPreset = AVCaptureSessionPresetLow;
             break;
     }
-    session.sessionPreset = sessionPreset; // 设置分辨率
+    session.sessionPreset = sessionPreset;
     
     // Find a suitable AVCaptureDevice
     AVCaptureDevice *device = [AVCaptureDevice
-                               defaultDeviceWithMediaType:AVMediaTypeVideo];//这里默认是使用后置摄像头，你可以改成前置摄像头
+                               defaultDeviceWithMediaType:AVMediaTypeVideo];
     
     // Create a device input with the device and add it to the session.
     AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device
@@ -155,7 +137,7 @@
     [session addInput:input];
     
     // Create a VideoDataOutput and add it to the session
-    AVCaptureVideoDataOutput *output = [[AVCaptureVideoDataOutput alloc] init];//创建一个视频数据输出流
+    AVCaptureVideoDataOutput *output = [[AVCaptureVideoDataOutput alloc] init];
     [session addOutput:output];
     
     // Configure your output.
@@ -164,17 +146,19 @@
     // Specify the pixel format
     output.videoSettings = [NSDictionary dictionaryWithObjectsAndKeys:
                             [NSNumber numberWithInt:kCVPixelFormatType_32BGRA], kCVPixelBufferPixelFormatTypeKey,
-                            [NSNumber numberWithInt: 320], (id)kCVPixelBufferWidthKey,
-                            [NSNumber numberWithInt: 440], (id)kCVPixelBufferHeightKey,
+                            [NSNumber numberWithInt: 400], (id)kCVPixelBufferWidthKey,
+                            [NSNumber numberWithInt: 240], (id)kCVPixelBufferHeightKey,
                             nil];
     
-    AVCaptureVideoPreviewLayer *preLayer = [AVCaptureVideoPreviewLayer layerWithSession: session];//相机拍摄预览图层
-    preLayer.frame = CGRectMake(20, 64 + 200, 320, 240);
+    // setup video connection
+    AVCaptureConnection *videoConnection = [output connectionWithMediaType:AVMediaTypeVideo];
+    videoConnection.videoOrientation = AVCaptureVideoOrientationPortrait;
+    
+    AVCaptureVideoPreviewLayer *preLayer = [AVCaptureVideoPreviewLayer layerWithSession: session];
+    preLayer.frame = CGRectMake(20, 64 + 100, 300, 240);
     preLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [self.view.layer addSublayer:preLayer];
-    // If you wish to cap the frame rate to a known value, such as 15 fps, set
-    // minFrameDuration.
-//    output.minFrameDuration = CMTimeMake(1, 15);
+    [preLayer setNeedsDisplay];
     
     // Start the session running to start the flow of data
     [session startRunning];
@@ -187,24 +171,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     
     [_streamingMediaManager sendVideoData:imageBuffer];
-    
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        CMBlockBufferRef blockBufferRef = CMSampleBufferGetDataBuffer(sampleBuffer);
-//        size_t length = CMBlockBufferGetDataLength(blockBufferRef);
-//        Byte buffer[length];
-//        CMBlockBufferCopyDataBytes(blockBufferRef, 0, length, buffer);
-//        NSData *data = [NSData dataWithBytes:buffer length:length];
-//        _dataLength += data.length;
-//        
-//        if ([[NSDate date] timeIntervalSinceDate:_lastDate] >= 60) {
-//            dispatch_sync(dispatch_get_main_queue(), ^{
-//                _bitRateLabel.text = [NSString stringWithFormat:@"%@ Bytes/s", @(_dataLength)];
-//                
-//                _dataLength = 0;
-//                _lastDate = [NSDate date];
-//            });
-//        }
-//    });
 }
 
 @end

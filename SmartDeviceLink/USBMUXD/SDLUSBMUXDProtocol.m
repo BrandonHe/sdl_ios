@@ -2,10 +2,6 @@
 #import "SDLUSBMUXDPrivate.h"
 #import <objc/runtime.h>
 
-//#if TARGET_OS_IPHONE
-//#import "SDLUSBMUXDViewController.h"
-//#endif
-
 static const uint32_t SDLUSBMUXDProtocolVersion1 = 1;
 
 NSString * const SDLUSBMUXDProtocolErrorDomain = @"SDLUSBMUXDProtocolError";
@@ -13,8 +9,7 @@ NSString * const SDLUSBMUXDProtocolErrorDomain = @"SDLUSBMUXDProtocolError";
 // This is what we send as the header for each frame.
 typedef struct _SDLUSBMUXDFrame {
   // This flag data is used as the header flag for separating each frame
-  uint32_t flagSectionOne;
-  uint32_t flagSectionTwo;
+  uint32_t headerFrameSeparationFlag;
     
   // The version of the frame and protocol.
   uint32_t version;
@@ -34,10 +29,10 @@ typedef struct _SDLUSBMUXDFrame {
 } SDLUSBMUXDFrame;
 
 // This flag data is used as the footer flag for separating each frame
-typedef struct _SDLUSBMUXDDataFlag {
-    uint32_t flagSectionOne;
-    uint32_t flagSectionTwo;
-} SDLUSBMUXDDataFlag;
+typedef struct _SDLUSBMUXDSeparationFlag {
+    uint32_t footerFrameVerification;
+    uint32_t footerFrameSeparationFlag;
+} SDLUSBMUXDFooterFrame;
 
 
 @interface SDLUSBMUXDProtocol () {
@@ -130,19 +125,30 @@ static void _release_queue_local_protocol(void *objcobj) {
 
 
 - (dispatch_data_t)createDispatchDataWithFrameOfType:(uint32_t)type frameTag:(uint32_t)frameTag payload:(dispatch_data_t)payload {
-    // header separate flag frame
-    SDLUSBMUXDDataFlag *footerFrame = CFAllocatorAllocate(kCFAllocatorDefault, sizeof(SDLUSBMUXDDataFlag), 0);
-    footerFrame->flagSectionOne = htonl(0xBBBBCCCC);
-    footerFrame->flagSectionTwo = htonl(0xDDDDEEEE);
     
-    dispatch_data_t footer = dispatch_data_create((const void*)footerFrame, sizeof(SDLUSBMUXDDataFlag), queue_, ^{
-        CFAllocatorDeallocate(kCFAllocatorDefault, (void*)footerFrame);
+    // Verify data
+    uint32_t sum = 0;
+    @autoreleasepool {
+        NSData *data = [NSData dataWithContentsOfDispatchData:payload];
+        Byte *byte = (Byte *)[data bytes];
+        for (int i = 0; i < dispatch_data_get_size(payload); i++) {
+            sum += byte[i];
+            sum = sum % 0xFFFFFFFF;
+        }
+    }
+    
+    // footer separate flag frame
+    SDLUSBMUXDFooterFrame *footerFrame = CFAllocatorAllocate(kCFAllocatorDefault, sizeof(SDLUSBMUXDFooterFrame), 0);
+    footerFrame->footerFrameVerification = htonl(sum);
+    footerFrame->footerFrameSeparationFlag = htonl(0x40404040);
+    
+    dispatch_data_t footer = dispatch_data_create((const void *)footerFrame, sizeof(SDLUSBMUXDFooterFrame), queue_, ^{
+        CFAllocatorDeallocate(kCFAllocatorDefault, (void *)footerFrame);
     });
     payload = dispatch_data_create_concat(payload, footer);
     
     SDLUSBMUXDFrame *frame = CFAllocatorAllocate(kCFAllocatorDefault, sizeof(SDLUSBMUXDFrame), 0);
-    frame->flagSectionOne = htonl(0xAAAABBBB);
-    frame->flagSectionTwo = htonl(0xCCCCDDDD);
+    frame->headerFrameSeparationFlag = htonl(0x26262626);
     frame->version = htonl(SDLUSBMUXDProtocolVersion1);
     frame->type = htonl(type);
     frame->tag = htonl(frameTag);
@@ -155,8 +161,8 @@ static void _release_queue_local_protocol(void *objcobj) {
         frame->payloadSize = 0;
     }
     
-    dispatch_data_t frameData = dispatch_data_create((const void*)frame, sizeof(SDLUSBMUXDFrame), queue_, ^{
-        CFAllocatorDeallocate(kCFAllocatorDefault, (void*)frame);
+    dispatch_data_t frameData = dispatch_data_create((const void *)frame, sizeof(SDLUSBMUXDFrame), queue_, ^{
+        CFAllocatorDeallocate(kCFAllocatorDefault, (void *)frame);
     });
     
     if (payload && frame->payloadSize != 0) {
@@ -198,12 +204,6 @@ static void _release_queue_local_protocol(void *objcobj) {
   __block dispatch_data_t allData = NULL;
   
     dispatch_io_read(channel, 0, sizeof(SDLUSBMUXDFrame), queue_, ^(bool done, dispatch_data_t data, int error) {
-//#if TARGET_OS_IPHONE
-//        SDLUSBMUXDViewController *vc = (SDLUSBMUXDViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-//        [vc appendOutputMessage:[NSString stringWithFormat:@"dispatch_io_read: type=%d data=%p error=%d", frameType, data, error]];
-//#endif
-        
-    //NSLog(@"dispatch_io_read: done=%d data=%p error=%d", done, data, error);
     size_t dataSize = data ? dispatch_data_get_size(data) : 0;
     
     if (dataSize) {
@@ -261,16 +261,7 @@ static void _release_queue_local_protocol(void *objcobj) {
         frame->type = ntohl(frame->type);
         frame->tag = ntohl(frame->tag);
         frame->payloadSize = ntohl(frame->payloadSize);
-          
-          
-//#if TARGET_OS_IPHONE
-//          if (frame->type != 102) {
-//              SDLUSBMUXDViewController *vc = (SDLUSBMUXDViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-//              [vc appendOutputMessage:[NSString stringWithFormat:@"type=%d data=%p error=%d payloadSize=%d", frame->type, data, error, frame->payloadSize]];
-//          }
-//#endif
-      
-          
+        
         callback(nil, frame->type, frame->tag, frame->payloadSize);
       }
       
@@ -285,7 +276,6 @@ static void _release_queue_local_protocol(void *objcobj) {
 - (void)readPayloadOfSize:(size_t)payloadSize overChannel:(dispatch_io_t)channel callback:(void(^)(NSError *error, dispatch_data_t contiguousData, const uint8_t *buffer, size_t bufferSize))callback {
   __block dispatch_data_t allData = NULL;
   dispatch_io_read(channel, 0, payloadSize, queue_, ^(bool done, dispatch_data_t data, int error) {
-    //NSLog(@"dispatch_io_read: done=%d data=%p error=%d", done, data, error);
     size_t dataSize = dispatch_data_get_size(data);
     
     if (dataSize) {

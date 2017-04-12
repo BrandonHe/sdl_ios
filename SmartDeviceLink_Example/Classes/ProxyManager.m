@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
     lifecycleConfig.resumeHash = @"1000001";
     
     // Assume this is production and disable logging
-    lifecycleConfig.logFlags = SDLLogOutputConsole;
+    lifecycleConfig.logFlags = SDLLogOutputNone;
     
     SDLConfiguration *config = [SDLConfiguration configurationWithLifecycle:lifecycleConfig lockScreen:[SDLLockScreenConfiguration disabledConfiguration]];
     self.sdlManager = [[SDLManager alloc] initWithConfiguration:config delegate:self];

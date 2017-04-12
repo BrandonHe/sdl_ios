@@ -390,7 +390,9 @@ void sdl_videoEncoderOutputCallback(void *outputCallbackRefCon, void *sourceFram
         [SDLDebugTool logFormat:@"Error encoding video, err=%lld", (int64_t)status];
         return;
     }
-    if (sampleBuffer == nil) {
+
+    // return if invalid sample buffer
+    if (!CMSampleBufferIsValid(sampleBuffer)) {
         return;
     }
 
