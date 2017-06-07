@@ -8,10 +8,6 @@
 
 #import "ShowViewController.h"
 
-#import "ProxyManager.h"
-#import "SDLTextAlignment.h"
-#import "SDLProxy.h"
-
 #import "SDLShow.h"
 
 @interface ShowViewController ()

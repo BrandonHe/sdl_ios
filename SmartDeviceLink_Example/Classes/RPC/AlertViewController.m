@@ -8,10 +8,6 @@
 
 #import "AlertViewController.h"
 
-#import "ProxyManager.h"
-#import "SDLTextAlignment.h"
-#import "SDLProxy.h"
-
 #import "SDLAlert.h"
 
 @interface AlertViewController ()
@@ -36,7 +32,7 @@
 
 - (void)showUI {
     UILabel *preLabel;
-    NSArray *array = @[@"alertText1", @"alertText1", @"duration"];
+    NSArray *array = @[@"alertText1", @"alertText1"];
     for (NSInteger i = 0; i < array.count; i++) {
         UILabel *keyLabel = [[UILabel alloc] init];
         keyLabel.textAlignment = NSTextAlignmentRight;
@@ -89,12 +85,12 @@
 - (void)submitRPC {
     NSString *alertText1 = _alertText1.text;
     NSString *alertText2 = _alertText2.text;
-    NSString *duration = _duration.text;
-    if (alertText1.length == 0 ||
-        alertText2.length == 0 ||
-        duration.length == 0) {
-        return;
-    }
+    NSString *duration = @"5000";//_duration.text;
+//    if (alertText1.length == 0 ||
+//        alertText2.length == 0 ||
+//        duration.length == 0) {
+//        return;
+//    }
     
     [self.view endEditing:YES];
     

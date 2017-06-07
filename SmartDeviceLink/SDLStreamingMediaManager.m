@@ -391,6 +391,11 @@ void sdl_videoEncoderOutputCallback(void *outputCallbackRefCon, void *sourceFram
         return;
     }
 
+    // return if invalid sample buffer
+    if (!CMSampleBufferIsValid(sampleBuffer)) {
+        return;
+    }
+
     SDLStreamingMediaManager *mediaManager = (__bridge SDLStreamingMediaManager *)sourceFrameRefCon;
     NSData *elementaryStreamData = [mediaManager.class sdl_encodeElementaryStreamWithSampleBuffer:sampleBuffer];
 

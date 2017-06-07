@@ -1,5 +1,5 @@
-#import "PTChannel.h"
-#import "PTPrivate.h"
+#import "SDLUSBMUXDChannel.h"
+#import "SDLUSBMUXDPrivate.h"
 
 #include <sys/ioctl.h>
 #include <sys/un.h>
@@ -9,7 +9,7 @@
 #import <objc/runtime.h>
 
 // Read member of sockaddr_in without knowing the family
-#define PT_SOCKADDR_ACCESS(ss, member4, member6) \
+#define SDLUSBMUXD_SOCKADDR_ACCESS(ss, member4, member6) \
   (((ss)->ss_family == AF_INET) ? ( \
     ((const struct sockaddr_in *)(ss))->member4 \
   ) : ( \
@@ -31,46 +31,46 @@
 #pragma mark -
 // Note: We are careful about the size of this struct as each connected peer
 // implies one allocation of this struct.
-@interface PTChannel () {
+@interface SDLUSBMUXDChannel () {
   dispatch_io_t dispatchObj_channel_;
   dispatch_source_t dispatchObj_source_;
   NSError *endError_;              // 64 bit
 @public  // here be hacks
-  id<PTChannelDelegate> delegate_; // 64 bit
+  id<SDLUSBMUXDChannelDelegate> delegate_; // 64 bit
   uint8_t delegateFlags_;             // 8 bit
 @private
   uint8_t connState_;                 // 8 bit
   //char padding_[6];              // 48 bit -- only if allocation speed is important
 }
-- (id)initWithProtocol:(PTProtocol*)protocol delegate:(id<PTChannelDelegate>)delegate;
+- (id)initWithProtocol:(SDLUSBMUXDProtocol*)protocol delegate:(id<SDLUSBMUXDChannelDelegate>)delegate;
 - (BOOL)acceptIncomingConnection:(dispatch_fd_t)serverSocketFD;
 @end
 static const uint8_t kUserInfoKey;
 
 #pragma mark -
-@interface PTData ()
+@interface SDLUSBMUXDData ()
 - (id)initWithMappedDispatchData:(dispatch_data_t)mappedContiguousData data:(void*)data length:(size_t)length;
 @end
 
 #pragma mark -
-@interface PTAddress () {
+@interface SDLUSBMUXDAddress () {
   struct sockaddr_storage sockaddr_;
 }
 - (id)initWithSockaddr:(const struct sockaddr_storage*)addr;
 @end
 
 #pragma mark -
-@implementation PTChannel
+@implementation SDLUSBMUXDChannel
 
 @synthesize protocol = protocol_;
 
 
-+ (PTChannel*)channelWithDelegate:(id<PTChannelDelegate>)delegate {
-  return [[PTChannel alloc] initWithProtocol:[PTProtocol sharedProtocolForQueue:dispatch_get_main_queue()] delegate:delegate];
++ (SDLUSBMUXDChannel*)channelWithDelegate:(id<SDLUSBMUXDChannelDelegate>)delegate {
+  return [[SDLUSBMUXDChannel alloc] initWithProtocol:[SDLUSBMUXDProtocol sharedProtocolForQueue:dispatch_get_main_queue()] delegate:delegate];
 }
 
 
-- (id)initWithProtocol:(PTProtocol*)protocol delegate:(id<PTChannelDelegate>)delegate {
+- (id)initWithProtocol:(SDLUSBMUXDProtocol*)protocol delegate:(id<SDLUSBMUXDChannelDelegate>)delegate {
   if (!(self = [super init])) return nil;
   protocol_ = protocol;
   self.delegate = delegate;
@@ -78,7 +78,7 @@ static const uint8_t kUserInfoKey;
 }
 
 
-- (id)initWithProtocol:(PTProtocol*)protocol {
+- (id)initWithProtocol:(SDLUSBMUXDProtocol*)protocol {
   if (!(self = [super init])) return nil;
   protocol_ = protocol;
   return self;
@@ -86,12 +86,12 @@ static const uint8_t kUserInfoKey;
 
 
 - (id)init {
-  return [self initWithProtocol:[PTProtocol sharedProtocolForQueue:dispatch_get_main_queue()]];
+  return [self initWithProtocol:[SDLUSBMUXDProtocol sharedProtocolForQueue:dispatch_get_main_queue()]];
 }
 
 
 - (void)dealloc {
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
   if (dispatchObj_channel_) dispatch_release(dispatchObj_channel_);
   else if (dispatchObj_source_) dispatch_release(dispatchObj_source_);
 #endif
@@ -127,7 +127,7 @@ static const uint8_t kUserInfoKey;
   dispatch_io_t prevChannel = dispatchObj_channel_;
   if (prevChannel != channel) {
     dispatchObj_channel_ = channel;
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
     if (dispatchObj_channel_) dispatch_retain(dispatchObj_channel_);
     if (prevChannel) dispatch_release(prevChannel);
 #endif
@@ -143,7 +143,7 @@ static const uint8_t kUserInfoKey;
   dispatch_source_t prevSource = dispatchObj_source_;
   if (prevSource != source) {
     dispatchObj_source_ = source;
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
     if (dispatchObj_source_) dispatch_retain(dispatchObj_source_);
     if (prevSource) dispatch_release(prevSource);
 #endif
@@ -154,12 +154,12 @@ static const uint8_t kUserInfoKey;
 }
 
 
-- (id<PTChannelDelegate>)delegate {
+- (id<SDLUSBMUXDChannelDelegate>)delegate {
   return delegate_;
 }
 
 
-- (void)setDelegate:(id<PTChannelDelegate>)delegate {
+- (void)setDelegate:(id<SDLUSBMUXDChannelDelegate>)delegate {
   delegate_ = delegate;
   delegateFlags_ = 0;
   if (!delegate_) {
@@ -190,7 +190,7 @@ static const uint8_t kUserInfoKey;
 #pragma mark - Connecting
 
 
-- (void)connectToPort:(int)port overUSBHub:(PTUSBHub*)usbHub deviceID:(NSNumber*)deviceID callback:(void(^)(NSError *error))callback {
+- (void)connectToPort:(int)port overUSBHub:(SDLUSBMUXDUSBHub*)usbHub deviceID:(NSNumber*)deviceID callback:(void(^)(NSError *error))callback {
   assert(protocol_ != NULL);
   if (connState_ != kConnStateNone) {
     if (callback) callback([NSError errorWithDomain:NSPOSIXErrorDomain code:EPERM userInfo:nil]);
@@ -214,7 +214,7 @@ static const uint8_t kUserInfoKey;
 }
 
 
-- (void)connectToPort:(in_port_t)port IPv4Address:(in_addr_t)address callback:(void(^)(NSError *error, PTAddress *address))callback {
+- (void)connectToPort:(in_port_t)port IPv4Address:(in_addr_t)address callback:(void(^)(NSError *error, SDLUSBMUXDAddress *address))callback {
   assert(protocol_ != NULL);
   if (connState_ != kConnStateNone) {
     if (callback) callback([NSError errorWithDomain:NSPOSIXErrorDomain code:EPERM userInfo:nil], nil);
@@ -276,15 +276,15 @@ static const uint8_t kUserInfoKey;
   
   if (!dispatchChannel) {
     close(fd);
-    if (callback) callback([[NSError alloc] initWithDomain:@"PTError" code:0 userInfo:nil], nil);
+    if (callback) callback([[NSError alloc] initWithDomain:@"SDLUSBMUXDError" code:0 userInfo:nil], nil);
     return;
   }
   
   // Success
   NSError *err = nil;
-  PTAddress *ptAddr = [[PTAddress alloc] initWithSockaddr:(struct sockaddr_storage*)&addr];
+  SDLUSBMUXDAddress *SDLUSBMUXDAddr = [[SDLUSBMUXDAddress alloc] initWithSockaddr:(struct sockaddr_storage*)&addr];
   [self startReadingFromConnectedChannel:dispatchChannel error:&err];
-  if (callback) callback(err, ptAddr);
+  if (callback) callback(err, SDLUSBMUXDAddr);
 }
 
 
@@ -385,8 +385,8 @@ static const uint8_t kUserInfoKey;
   }
   
   if (delegateFlags_ & kDelegateFlagImplements_ioFrameChannel_didAcceptConnection_fromAddress) {
-    PTChannel *peerChannel = [[PTChannel alloc] initWithProtocol:protocol_ delegate:delegate_];
-    __block PTChannel *localChannelRef = self;
+    SDLUSBMUXDChannel *peerChannel = [[SDLUSBMUXDChannel alloc] initWithProtocol:protocol_ delegate:delegate_];
+    __block SDLUSBMUXDChannel *localChannelRef = self;
     dispatch_io_t dispatchChannel = dispatch_io_create(DISPATCH_IO_STREAM, clientSocketFD, protocol_.queue, ^(int error) {
       // Important note: This block captures *self*, thus a reference is held to
       // *self* until the fd is truly closed.
@@ -405,7 +405,7 @@ static const uint8_t kUserInfoKey;
     [peerChannel setDispatchChannel:dispatchChannel];
     
     assert(((struct sockaddr_storage*)&addr)->ss_len == addrLen);
-    PTAddress *address = [[PTAddress alloc] initWithSockaddr:(struct sockaddr_storage*)&addr];
+    SDLUSBMUXDAddress *address = [[SDLUSBMUXDAddress alloc] initWithSockaddr:(struct sockaddr_storage*)&addr];
     [delegate_ ioFrameChannel:self didAcceptConnection:peerChannel fromAddress:address];
     
     NSError *err = nil;
@@ -473,7 +473,7 @@ static const uint8_t kUserInfoKey;
   };
   
   [protocol_ readFramesOverChannel:channel onFrame:^(NSError *error, uint32_t type, uint32_t tag, uint32_t payloadSize, dispatch_block_t resumeReadingFrames) {
-    if (handleError(error, type == PTFrameTypeEndOfStream)) {
+    if (handleError(error, type == SDLUSBMUXDFrameTypeEndOfStream)) {
       return;
     }
     
@@ -505,7 +505,7 @@ static const uint8_t kUserInfoKey;
           }
           
           if (delegate_) {
-            PTData *payload = [[PTData alloc] initWithMappedDispatchData:contiguousData data:(void*)buffer length:bufferSize];
+            SDLUSBMUXDData *payload = [[SDLUSBMUXDData alloc] initWithMappedDispatchData:contiguousData data:(void*)buffer length:bufferSize];
             [delegate_ ioFrameChannel:self didReceiveFrameOfType:type tag:tag payload:payload];
           }
           
@@ -533,7 +533,7 @@ static const uint8_t kUserInfoKey;
 
 - (NSString*)description {
   id userInfo = objc_getAssociatedObject(self, (void*)&kUserInfoKey);
-  return [NSString stringWithFormat:@"<PTChannel: %p (%@)%s%@>", self, (  connState_ == kConnStateConnecting ? @"connecting"
+  return [NSString stringWithFormat:@"<SDLUSBMUXDChannel: %p (%@)%s%@>", self, (  connState_ == kConnStateConnecting ? @"connecting"
                                                                     : connState_ == kConnStateConnected  ? @"connected" 
                                                                     : connState_ == kConnStateListening  ? @"listening"
                                                                     :                                      @"closed"),
@@ -545,7 +545,7 @@ static const uint8_t kUserInfoKey;
 
 
 #pragma mark -
-@implementation PTAddress
+@implementation SDLUSBMUXDAddress
 
 - (id)initWithSockaddr:(const struct sockaddr_storage*)addr {
   if (!(self = [super init])) return nil;
@@ -580,7 +580,7 @@ static const uint8_t kUserInfoKey;
 
 - (NSInteger)port {
   if (sockaddr_.ss_len) {
-    return ntohs(PT_SOCKADDR_ACCESS(&sockaddr_, sin_port, sin6_port));
+    return ntohs(SDLUSBMUXD_SOCKADDR_ACCESS(&sockaddr_, sin_port, sin6_port));
   } else {
     return 0;
   }
@@ -599,7 +599,7 @@ static const uint8_t kUserInfoKey;
 
 
 #pragma mark -
-@implementation PTData
+@implementation SDLUSBMUXDData
 
 @synthesize dispatchData = dispatchData_;
 @synthesize data = data_;
@@ -608,7 +608,7 @@ static const uint8_t kUserInfoKey;
 - (id)initWithMappedDispatchData:(dispatch_data_t)mappedContiguousData data:(void*)data length:(size_t)length {
   if (!(self = [super init])) return nil;
   dispatchData_ = mappedContiguousData;
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
   if (dispatchData_) dispatch_retain(dispatchData_);
 #endif
   data_ = data;
@@ -617,7 +617,7 @@ static const uint8_t kUserInfoKey;
 }
 
 - (void)dealloc {
-#if PT_DISPATCH_RETAIN_RELEASE
+#if SDLUSBMUXD_DISPATCH_RETAIN_RELEASE
   if (dispatchData_) dispatch_release(dispatchData_);
 #endif
   data_ = NULL;
@@ -627,7 +627,7 @@ static const uint8_t kUserInfoKey;
 #pragma mark - NSObject
 
 - (NSString*)description {
-  return [NSString stringWithFormat:@"<PTData: %p (%zu bytes)>", self, length_];
+  return [NSString stringWithFormat:@"<SDLUSBMUXDData: %p (%zu bytes)>", self, length_];
 }
 
 @end

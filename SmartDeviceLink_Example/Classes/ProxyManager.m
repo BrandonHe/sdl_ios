@@ -93,9 +93,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)startUSBMUXD {
     [self sdlex_updateProxyState:ProxyStateSearchingForConnection];
     SDLLifecycleConfiguration *lifecycleConfig = [self.class setLifecycleConfigurationPropertiesOnConfiguration:[SDLLifecycleConfiguration defaultConfigurationWithAppName:SDLAppName appId:SDLAppId transportType:SDLTransportTypeUSBMUXD]];
+    lifecycleConfig.resumeHash = @"1000001";
     
     // Assume this is production and disable logging
-    lifecycleConfig.logFlags = SDLLogOutputConsole;
+    lifecycleConfig.logFlags = SDLLogOutputNone;
     
     SDLConfiguration *config = [SDLConfiguration configurationWithLifecycle:lifecycleConfig lockScreen:[SDLLockScreenConfiguration disabledConfiguration]];
     self.sdlManager = [[SDLManager alloc] initWithConfiguration:config delegate:self];
@@ -173,6 +174,7 @@ NS_ASSUME_NONNULL_BEGIN
     config.appIcon = appIconArt;
     config.voiceRecognitionCommandNames = @[@"S D L Example"];
     config.ttsName = [SDLTTSChunk textChunksFromString:config.shortAppName];
+    config.appType = [SDLAppHMIType NAVIGATION];
     return config;
 }
 

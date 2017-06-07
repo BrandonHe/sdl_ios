@@ -39,7 +39,8 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_connectButton];
     
     _dataArray = @[@{@"rpcName": @"Show", @"className": @"ShowViewController"},
-                   @{@"rpcName": @"Alert", @"className": @"AlertViewController"}];
+                   @{@"rpcName": @"Alert", @"className": @"AlertViewController"},
+                   @{@"rpcName": @"StreamingMedia", @"className": @"StreamingMediaViewController"}];
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
     
@@ -62,10 +63,14 @@
 }
 
 - (void)connect {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(connectTimeout) object:nil];
+    
     ProxyState state = [ProxyManager sharedManager].state;
     switch (state) {
         case ProxyStateStopped: {
             [[ProxyManager sharedManager] startUSBMUXD];
+            
+            [self performSelector:@selector(connectTimeout) withObject:nil afterDelay:30];
         } break;
         case ProxyStateSearchingForConnection: {
             [[ProxyManager sharedManager] reset];
@@ -93,21 +98,18 @@
     NSString *newTitle = nil;
     NSString *title = nil;
     
-    _connectButton.enabled = NO;
-    
     switch (newState) {
         case ProxyStateStopped: {
             newTitle = @"ProxyStateStopped";
             title = @"Connect";
-            _connectButton.enabled = YES;
         } break;
         case ProxyStateSearchingForConnection: {
             newTitle = @"ProxyStateSearchingForConnection";
-            title = @"Searching";
+            title = @"Stop Searching";
         } break;
         case ProxyStateConnected: {
             newTitle = @"ProxyStateConnected";
-            title = @"Connected";
+            title = @"Disconnect";
         } break;
         default: break;
     }
@@ -139,6 +141,12 @@
     UIViewController *viewController = [[NSClassFromString([dic objectForKey:@"className"]) alloc] init];
     viewController.title = [dic objectForKey:@"rpcName"];
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)connectTimeout {
+    if ([ProxyManager sharedManager].state != ProxyStateConnected) {
+        [[ProxyManager sharedManager] reset];
+    }
 }
 
 @end

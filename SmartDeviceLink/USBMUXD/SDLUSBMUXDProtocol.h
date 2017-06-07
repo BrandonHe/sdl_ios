@@ -17,22 +17,22 @@
 
 // Special frame tag that signifies "no tag". Your implementation should never
 // create a reply for a frame with this tag.
-static const uint32_t PTFrameNoTag = 0;
+static const uint32_t SDLUSBMUXDFrameNoTag = 0;
 
 // Special frame type that signifies that the stream has ended.
-static const uint32_t PTFrameTypeEndOfStream = 0;
+static const uint32_t SDLUSBMUXDFrameTypeEndOfStream = 0;
 
 // NSError domain
-FOUNDATION_EXPORT NSString * const PTProtocolErrorDomain;
+FOUNDATION_EXPORT NSString * const SDLUSBMUXDProtocolErrorDomain;
 
 
-@interface PTProtocol : NSObject
+@interface SDLUSBMUXDProtocol : NSObject
 
 // Queue on which to run data processing blocks.
 @property dispatch_queue_t queue;
 
 // Get the shared protocol object for *queue*
-+ (PTProtocol*)sharedProtocolForQueue:(dispatch_queue_t)queue;
++ (SDLUSBMUXDProtocol*)sharedProtocolForQueue:(dispatch_queue_t)queue;
 
 // Initialize a new protocol object to use a specific queue.
 - (id)initWithDispatchQueue:(dispatch_queue_t)queue;
@@ -60,7 +60,7 @@ FOUNDATION_EXPORT NSString * const PTProtocolErrorDomain;
 // The onFrame handler is responsible for reading (or discarding) any payload
 // and call *resumeReadingFrames* afterwards to resume reading frames.
 // To stop reading frames, simply do not invoke *resumeReadingFrames*.
-// When the stream ends, a frame of type PTFrameTypeEndOfStream is received.
+// When the stream ends, a frame of type SDLUSBMUXDFrameTypeEndOfStream is received.
 - (void)readFramesOverChannel:(dispatch_io_t)channel
                       onFrame:(void(^)(NSError *error,
                                        uint32_t type,
@@ -68,7 +68,7 @@ FOUNDATION_EXPORT NSString * const PTProtocolErrorDomain;
                                        uint32_t payloadSize,
                                        dispatch_block_t resumeReadingFrames))onFrame;
 
-// Read a single frame over *channel*. A frame of type PTFrameTypeEndOfStream
+// Read a single frame over *channel*. A frame of type SDLUSBMUXDFrameTypeEndOfStream
 // denotes the stream has ended.
 - (void)readFrameOverChannel:(dispatch_io_t)channel
                     callback:(void(^)(NSError *error,
@@ -98,7 +98,7 @@ FOUNDATION_EXPORT NSString * const PTProtocolErrorDomain;
 
 @end
 
-@interface NSData (PTProtocol)
+@interface NSData (SDLUSBMUXDProtocol)
 // Creates a new dispatch_data_t object which references the receiver and uses
 // the receivers bytes as its backing data. The returned dispatch_data_t object
 // holds a reference to the recevier. It's the callers responsibility to call
@@ -107,8 +107,8 @@ FOUNDATION_EXPORT NSString * const PTProtocolErrorDomain;
 + (NSData *)dataWithContentsOfDispatchData:(dispatch_data_t)data;
 @end
 
-@interface NSDictionary (PTProtocol)
-// See description of -[NSData(PTProtocol) createReferencingDispatchData]
+@interface NSDictionary (SDLUSBMUXDProtocol)
+// See description of -[NSData(SDLUSBMUXDProtocol) createReferencingDispatchData]
 - (dispatch_data_t)createReferencingDispatchData;
 
 // Decode *data* as a peroperty list-encoded dictionary. Returns nil on failure.

@@ -8,6 +8,10 @@
 
 #import "BaseViewController.h"
 
+#import "ProxyManager.h"
+#import "SDLTextAlignment.h"
+#import "SDLProxy.h"
+
 @interface BaseScrollViewController : BaseViewController
 {
     UIScrollView *_scrollView;

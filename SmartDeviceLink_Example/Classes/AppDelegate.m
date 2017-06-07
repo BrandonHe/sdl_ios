@@ -9,7 +9,10 @@
 
 
 @interface AppDelegate ()
-
+{
+    UIBackgroundTaskIdentifier _bgTask;
+    NSInteger _counter;
+}
 @end
 
 
@@ -29,6 +32,15 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    BOOL backgroundAccepted = [[UIApplication sharedApplication] setKeepAliveTimeout:600 handler:^{ [self backgroundHandler];
+    }];
+    
+    if (backgroundAccepted) {
+        NSLog(@"backgrounding accepted");
+    }
+    
+    [self backgroundHandler];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -41,6 +53,25 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+- (void)backgroundHandler {
+    _counter = 0;
+    
+    UIApplication *app = [UIApplication sharedApplication];
+    _bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
+        [app endBackgroundTask:_bgTask];
+        _bgTask = UIBackgroundTaskInvalid;
+    }];
+    
+    // Start the long-running task
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        while (1) {
+            NSLog(@"counter:%@", @(_counter++));
+            sleep(1);
+        }
+    });
 }
 
 @end
