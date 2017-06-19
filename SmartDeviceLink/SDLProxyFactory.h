@@ -11,9 +11,9 @@ __deprecated_msg("Use SDLManager instead")
     @interface SDLProxyFactory : NSObject {
 }
 
-+ (SDLProxy *)buildSDLProxyWithListener:(NSObject<SDLProxyListener> *)listener;
++ (SDLProxy *)buildSDLProxyWithiAPListener:(NSObject<SDLProxyListener> *)listener;
 
-+ (SDLProxy *)buildSDLProxyWithListener:(NSObject<SDLProxyListener> *)listener
-                           tcpIPAddress:(NSString *)ipaddress
-                                tcpPort:(NSString *)port;
++ (SDLProxy *)buildSDLProxyWithTCPListener:(NSObject<SDLProxyListener> *)listener
+                              tcpIPAddress:(NSString *)ipaddress
+                                   tcpPort:(NSString *)port;
 @end
