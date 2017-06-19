@@ -70,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startIAP {
     [self sdlex_updateProxyState:ProxyStateSearchingForConnection];
-    SDLLifecycleConfiguration *lifecycleConfig = [self.class setLifecycleConfigurationPropertiesOnConfiguration:[SDLLifecycleConfiguration defaultConfigurationWithAppName:SDLAppName appId:SDLAppId]];
+    SDLLifecycleConfiguration *lifecycleConfig = [self.class setLifecycleConfigurationPropertiesOnConfiguration:[SDLLifecycleConfiguration defaultConfigurationWithAppName:SDLAppName appId:SDLAppId transportType:SDLTransportTypeIAP]];
     
     // Assume this is production and disable logging
     lifecycleConfig.logFlags = SDLLogOutputNone;
